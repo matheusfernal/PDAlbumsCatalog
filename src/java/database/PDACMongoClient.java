@@ -10,12 +10,13 @@ import com.mongodb.MongoClient;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.PDACProperties;
 
 /**
  *
  * @author matheusfernal
  */
-public class MongoClientSingleton
+public class PDACMongoClient
 {
     private static MongoClient mongoClientInstance;
 
@@ -25,13 +26,26 @@ public class MongoClientSingleton
         {
             try
             {
-                mongoClientInstance = new MongoClient("localhost");
+                try
+                {
+                    Integer dbPort = Integer.parseInt(PDACProperties.getInstance().getDBPort());
+                    mongoClientInstance = new MongoClient(PDACProperties.getInstance().getDBHost(), dbPort);
+                } catch (NumberFormatException e)
+                {
+                    mongoClientInstance = new MongoClient(PDACProperties.getInstance().getDBHost());
+                }
+                
             } catch (UnknownHostException ex)
             {
-                Logger.getLogger(MongoClientSingleton.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PDACMongoClient.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return mongoClientInstance;
+    }
+    
+    private PDACMongoClient()
+    {
+        
     }
     
 }

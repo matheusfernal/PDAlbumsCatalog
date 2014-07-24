@@ -9,8 +9,9 @@ package test;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import database.AlbumsDAO;
-import database.MongoClientSingleton;
+import database.PDACMongoClient;
 import java.util.Set;
+import util.PDACProperties;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        DB db = MongoClientSingleton.getMongoClientInstance().getDB("test");
+        DB db = PDACMongoClient.getMongoClientInstance().getDB(PDACProperties.getInstance().getMainDB());
         
         Set<String> colls = db.getCollectionNames();
 
@@ -30,6 +31,6 @@ public class Main
         }
         
         AlbumsDAO albumsDAO = new AlbumsDAO(db);
-        albumsDAO.insertAlbum("Lotus", "Christina Aguilera", 2013, "pop", "my favorites");
+        albumsDAO.insertAlbum("Bionic", "Christina Aguilera", 2010, "pop", "my favorites");
     }
 }

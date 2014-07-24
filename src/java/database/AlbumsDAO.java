@@ -62,4 +62,5 @@ public class AlbumsDAO
         
         getAlbums().insert(album);       
     }
+    
 }
