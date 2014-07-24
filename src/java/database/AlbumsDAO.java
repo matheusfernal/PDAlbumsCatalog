@@ -9,7 +9,14 @@ package database;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
+import entities.Album;
+import entities.Collection;
+import entitiesConverters.AlbumConverter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,8 +24,8 @@ import com.mongodb.WriteResult;
  */
 public class AlbumsDAO
 {
-    private DB db;
-    private DBCollection albums;
+    private final DB db;
+    private final DBCollection albums;
     
     public AlbumsDAO(DB db)
     {
@@ -63,4 +70,19 @@ public class AlbumsDAO
         getAlbums().insert(album);       
     }
     
+    public List<Album> findAllAlbunsOfCollection(Collection collection)
+    {
+        getAlbums().createIndex(new BasicDBObject("collection", 1));
+        
+        DBCursor cursor = getAlbums().find(new BasicDBObject("collection", collection.getName()));
+        List<Album> albums = new ArrayList<>();
+        while (cursor.hasNext())
+        {
+            DBObject dbAlbum = cursor.next();
+            Album album = AlbumConverter.convertDBObjectToAlbum(dbAlbum);
+            albums.add(album);
+        }
+        
+        return albums;
+    }
 }

@@ -6,6 +6,8 @@
 
 package entities;
 
+import java.util.List;
+
 /**
  *
  * @author matheusfernal
@@ -14,9 +16,19 @@ public class Album {
     
     private String name;
     private String genre;
-    private String singer;
+    private String artist;
     private String label;
-
+    private String coverPath;
+    private List<Track> tracks;
+    private List<String> tags;
+    private Collection collection;
+    
+    public Album(String name, String artist)
+    {
+        this.name = name;
+        this.artist = artist;
+    }
+    
     public String getName() {
         return name;
     }
@@ -25,8 +37,8 @@ public class Album {
         return genre;
     }
 
-    public String getSinger() {
-        return singer;
+    public String getArtist() {
+        return artist;
     }
 
     public String getLabel() {
@@ -41,11 +53,51 @@ public class Album {
         this.genre = genre;
     }
 
-    public void setSinger(String singer) {
-        this.singer = singer;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public List<Track> getTracks()
+    {
+        return tracks;
+    }
+
+    public void setTracks(List<Track> tracks)
+    {
+        this.tracks = tracks;
+    }
+
+    public List<String> getTags()
+    {
+        return tags;
+    }
+
+    public void setTags(List<String> tags)
+    {
+        this.tags = tags;
+    }
+
+    public Collection getCollection()
+    {
+        return collection;
+    }
+
+    public void setCollection(Collection collection)
+    {
+        this.collection = collection;
+    }
+
+    public String getCoverPath()
+    {
+        return coverPath;
+    }
+
+    public void setCoverPath(String coverPath)
+    {
+        this.coverPath = coverPath;
     }
 }
