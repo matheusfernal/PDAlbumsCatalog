@@ -15,6 +15,7 @@ import java.util.Objects;
  */
 public class Album {
     
+    private String id;
     private String title;
     private String genre;
     private String artist;
@@ -114,19 +115,30 @@ public class Album {
         this.year = year;
     }
 
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
     @Override
     public int hashCode()
     {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.title);
-        hash = 53 * hash + Objects.hashCode(this.genre);
-        hash = 53 * hash + Objects.hashCode(this.artist);
-        hash = 53 * hash + Objects.hashCode(this.label);
-        hash = 53 * hash + Objects.hashCode(this.year);
-        hash = 53 * hash + Objects.hashCode(this.coverPath);
-        hash = 53 * hash + Objects.hashCode(this.tracks);
-        hash = 53 * hash + Objects.hashCode(this.tags);
-        hash = 53 * hash + Objects.hashCode(this.collection);
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.id);
+        hash = 61 * hash + Objects.hashCode(this.title);
+        hash = 61 * hash + Objects.hashCode(this.genre);
+        hash = 61 * hash + Objects.hashCode(this.artist);
+        hash = 61 * hash + Objects.hashCode(this.label);
+        hash = 61 * hash + Objects.hashCode(this.year);
+        hash = 61 * hash + Objects.hashCode(this.coverPath);
+        hash = 61 * hash + Objects.hashCode(this.tracks);
+        hash = 61 * hash + Objects.hashCode(this.tags);
+        hash = 61 * hash + Objects.hashCode(this.collection);
         return hash;
     }
 
@@ -142,6 +154,10 @@ public class Album {
             return false;
         }
         final Album other = (Album) obj;
+        if (!Objects.equals(this.id, other.id))
+        {
+            return false;
+        }
         if (!Objects.equals(this.title, other.title))
         {
             return false;

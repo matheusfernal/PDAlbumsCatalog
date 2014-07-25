@@ -67,7 +67,7 @@ public abstract class AlbumConverter
         album.setLabel((String) dbAlbum.get("label"));
         album.setCoverPath((String) dbAlbum.get("coverPath"));
         album.setYear((Integer) dbAlbum.get("year"));
-        album.setCollection(CollectionConverter.convertStringToCollection(dbAlbum.get("collection").toString()));
+        album.setCollection(CollectionConverter.convertStringToCollection((String) dbAlbum.get("collection")));
         
         List<String> tags = new ArrayList<>();
         if (dbAlbum.get("tags") != null && dbAlbum.get("tags") instanceof BasicDBList)

@@ -17,6 +17,7 @@ import entities.Collection;
 import entitiesConverters.AlbumConverter;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -57,7 +58,8 @@ public class AlbumsDAO
                 
         dbAlbum.append("collection", album.getCollection() != null ? album.getCollection().getName() : null);
         
-        getAlbums().insert(dbAlbum);       
+        getAlbums().insert(dbAlbum);
+        album.setId(dbAlbum.get("_id").toString());
     }
     
     public List<Album> findAllAlbunsOfCollection(Collection collection)
@@ -74,5 +76,12 @@ public class AlbumsDAO
         }
         
         return _albums;
+    }
+    
+    public Album findAlbumById(String id)
+    {
+        DBObject dbAlbum = getAlbums().findOne(new BasicDBObject("_id", new ObjectId(id)));
+        
+        return AlbumConverter.convertDBObjectToAlbum(dbAlbum);
     }
 }

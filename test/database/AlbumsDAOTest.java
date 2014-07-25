@@ -92,4 +92,29 @@ public class AlbumsDAOTest
         assertEquals(3, albumsOfCollection1.size());
     }
     
+    @Test
+    public void testInsertAlbumSideEfectOfSettingId()
+    {
+        Album album5 = new Album("album_5", "artist_5");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album5);
+        
+        assertNotNull("id was not set", album5.getId());
+    }
+    
+    @Test 
+    public void testFindAlbumById()
+    {
+        Album album6 = new Album("album_6", "artist_6");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album6);
+        
+        Album retrievedAlbum6 = albumsDAO.findAlbumById(album6.getId());
+        
+        assertEquals(album6.getTitle(), retrievedAlbum6.getTitle());
+        assertEquals(album6.getArtist(), retrievedAlbum6.getArtist());
+    }
+    
 }
