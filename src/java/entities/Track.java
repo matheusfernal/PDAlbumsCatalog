@@ -6,27 +6,29 @@
 
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author matheusfernal
  */
 public class Track
 {
-    private short number;
+    private int number;
     private String name;
 
-    public Track(short number, String name)
+    public Track(int number, String name)
     {
         this.number = number;
         this.name = name;
     }
 
-    public short getNumber()
+    public int getNumber()
     {
         return number;
     }
 
-    public void setNumber(short number)
+    public void setNumber(int number)
     {
         this.number = number;
     }
@@ -39,5 +41,37 @@ public class Track
     public void setName(String name)
     {
         this.name = name;
-    }  
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 41 * hash + this.number;
+        hash = 41 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Track other = (Track) obj;
+        if (this.number != other.number)
+        {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name))
+        {
+            return false;
+        }
+        return true;
+    }
 }

@@ -7,6 +7,7 @@
 package entities;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -99,5 +100,67 @@ public class Album {
     public void setCoverPath(String coverPath)
     {
         this.coverPath = coverPath;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.name);
+        hash = 13 * hash + Objects.hashCode(this.genre);
+        hash = 13 * hash + Objects.hashCode(this.artist);
+        hash = 13 * hash + Objects.hashCode(this.label);
+        hash = 13 * hash + Objects.hashCode(this.coverPath);
+        hash = 13 * hash + Objects.hashCode(this.tracks);
+        hash = 13 * hash + Objects.hashCode(this.tags);
+        hash = 13 * hash + Objects.hashCode(this.collection);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Album other = (Album) obj;
+        if (!Objects.equals(this.name, other.name))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.genre, other.genre))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.artist, other.artist))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.label, other.label))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.coverPath, other.coverPath))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.tracks, other.tracks))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.tags, other.tags))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.collection, other.collection))
+        {
+            return false;
+        }
+        return true;
     }
 }

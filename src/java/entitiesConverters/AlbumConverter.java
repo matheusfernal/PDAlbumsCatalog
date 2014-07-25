@@ -64,6 +64,7 @@ public abstract class AlbumConverter
         Album album = new Album(dbAlbum.get("name").toString(), dbAlbum.get("artist").toString());
         album.setGenre(dbAlbum.get("genre").toString());
         album.setLabel(dbAlbum.get("label").toString());
+        album.setCoverPath(dbAlbum.get("coverPath").toString());
         album.setCollection(CollectionConverter.convertStringToCollection(dbAlbum.get("collection").toString()));
         
         List<String> tags = new ArrayList<>();
