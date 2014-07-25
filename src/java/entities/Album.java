@@ -25,9 +25,10 @@ public class Album {
     private List<String> tags;
     private Collection collection;
     
-    public Album(String name, String artist)
+    public Album(String title, String artist)
     {
-        this.title = name;
+        //TODO: Handle title or artist null
+        this.title = title;
         this.artist = artist;
     }
     

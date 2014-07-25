@@ -62,10 +62,10 @@ public abstract class AlbumConverter
     public static Album convertDBObjectToAlbum(DBObject dbAlbum)
     {
         //TODO: Verify if dbAlbum is valid and throw exception otherwise
-        Album album = new Album(dbAlbum.get("title").toString(), dbAlbum.get("artist").toString());
-        album.setGenre(dbAlbum.get("genre").toString());
-        album.setLabel(dbAlbum.get("label").toString());
-        album.setCoverPath(dbAlbum.get("coverPath").toString());
+        Album album = new Album((String) dbAlbum.get("title"), (String) dbAlbum.get("artist"));
+        album.setGenre((String) dbAlbum.get("genre"));
+        album.setLabel((String) dbAlbum.get("label"));
+        album.setCoverPath((String) dbAlbum.get("coverPath"));
         album.setYear((Integer) dbAlbum.get("year"));
         album.setCollection(CollectionConverter.convertStringToCollection(dbAlbum.get("collection").toString()));
         

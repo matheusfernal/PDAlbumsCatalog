@@ -15,9 +15,10 @@ import java.util.Objects;
 public class Collection
 {
     String name;
-
+    
     public Collection(String name)
     {
+        //TODO: Handle name null
         this.name = name;
     }
 
