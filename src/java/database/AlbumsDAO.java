@@ -84,4 +84,16 @@ public class AlbumsDAO
         
         return AlbumConverter.convertDBObjectToAlbum(dbAlbum);
     }
+    
+    public void updateAlbum(Album album)
+    {
+        //TODO: Handle albums without id
+        if (album.getId() != null)
+        {
+            DBObject searchQuery = new BasicDBObject("_id", new ObjectId(album.getId()));
+            DBObject newDBAlbum = AlbumConverter.convertAlbumToDBObject(album);
+            
+            getAlbums().update(searchQuery, newDBAlbum);
+        }
+    }
 }

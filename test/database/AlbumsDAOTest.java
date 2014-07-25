@@ -61,7 +61,7 @@ public class AlbumsDAOTest
         Album album = new Album("album_1", "artist_1");
         albumsDAO.insertAlbum(album);
         
-        long albunsQty = db.getCollection("albums").count();
+        long albunsQty = albumsDAO.getAlbums().count();
         
         assertEquals(1, albunsQty);
     }
@@ -117,4 +117,27 @@ public class AlbumsDAOTest
         assertEquals(album6.getArtist(), retrievedAlbum6.getArtist());
     }
     
+    @Test
+    public void testUpdateAlbum()
+    {
+        Album album7 = new Album("album_7", "artist_7");
+        album7.setGenre("genre_7");
+        album7.setLabel("label_7");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album7);
+        
+        Album album7u = new Album(album7.getTitle(), album7.getArtist());
+        album7u.setGenre("genre_7u");
+        album7u.setId(album7.getId());
+        
+        albumsDAO.updateAlbum(album7u);
+        
+        long albunsQty = albumsDAO.getAlbums().count();
+        assertEquals(1, albunsQty);
+        
+        Album album7ur = albumsDAO.findAlbumById(album7.getId());
+        assertEquals("genre_7u", album7ur.getGenre());
+        assertNull(album7ur.getLabel());
+    }
 }
