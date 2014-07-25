@@ -54,7 +54,7 @@ public class AlbumConverterTest
         
         DBObject dbAlbum = AlbumConverter.convertAlbumToDBObject(album);
         
-        assertEquals(album.getName(), dbAlbum.get("name"));
+        assertEquals(album.getTitle(), dbAlbum.get("title"));
         assertEquals(album.getArtist(), dbAlbum.get("artist"));
         assertEquals(album.getGenre(), dbAlbum.get("genre"));
         assertEquals(album.getCoverPath(), dbAlbum.get("coverPath"));

@@ -15,10 +15,11 @@ import java.util.Objects;
  */
 public class Album {
     
-    private String name;
+    private String title;
     private String genre;
     private String artist;
     private String label;
+    private Integer year;
     private String coverPath;
     private List<Track> tracks;
     private List<String> tags;
@@ -26,12 +27,12 @@ public class Album {
     
     public Album(String name, String artist)
     {
-        this.name = name;
+        this.title = name;
         this.artist = artist;
     }
     
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getGenre() {
@@ -46,8 +47,8 @@ public class Album {
         return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setGenre(String genre) {
@@ -101,19 +102,30 @@ public class Album {
     {
         this.coverPath = coverPath;
     }
+    
+        public Integer getYear()
+    {
+        return year;
+    }
+
+    public void setYear(Integer year)
+    {
+        this.year = year;
+    }
 
     @Override
     public int hashCode()
     {
-        int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.genre);
-        hash = 13 * hash + Objects.hashCode(this.artist);
-        hash = 13 * hash + Objects.hashCode(this.label);
-        hash = 13 * hash + Objects.hashCode(this.coverPath);
-        hash = 13 * hash + Objects.hashCode(this.tracks);
-        hash = 13 * hash + Objects.hashCode(this.tags);
-        hash = 13 * hash + Objects.hashCode(this.collection);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.title);
+        hash = 53 * hash + Objects.hashCode(this.genre);
+        hash = 53 * hash + Objects.hashCode(this.artist);
+        hash = 53 * hash + Objects.hashCode(this.label);
+        hash = 53 * hash + Objects.hashCode(this.year);
+        hash = 53 * hash + Objects.hashCode(this.coverPath);
+        hash = 53 * hash + Objects.hashCode(this.tracks);
+        hash = 53 * hash + Objects.hashCode(this.tags);
+        hash = 53 * hash + Objects.hashCode(this.collection);
         return hash;
     }
 
@@ -129,7 +141,7 @@ public class Album {
             return false;
         }
         final Album other = (Album) obj;
-        if (!Objects.equals(this.name, other.name))
+        if (!Objects.equals(this.title, other.title))
         {
             return false;
         }
@@ -142,6 +154,10 @@ public class Album {
             return false;
         }
         if (!Objects.equals(this.label, other.label))
+        {
+            return false;
+        }
+        if (!Objects.equals(this.year, other.year))
         {
             return false;
         }

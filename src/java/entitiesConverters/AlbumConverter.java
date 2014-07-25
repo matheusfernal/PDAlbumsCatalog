@@ -23,11 +23,12 @@ public abstract class AlbumConverter
 {
     public static DBObject convertAlbumToDBObject(Album album)
     {
-        BasicDBObject dbAlbum = new BasicDBObject("name", album.getName())
+        BasicDBObject dbAlbum = new BasicDBObject("title", album.getTitle())
                 .append("artist", album.getArtist())
                 .append("genre", album.getGenre())
                 .append("label", album.getLabel())
-                .append("coverPath", album.getCoverPath());
+                .append("coverPath", album.getCoverPath())
+                .append("year", album.getYear());
         
         String collectionName = null;
         if (album.getCollection() != null)
@@ -61,10 +62,11 @@ public abstract class AlbumConverter
     public static Album convertDBObjectToAlbum(DBObject dbAlbum)
     {
         //TODO: Verify if dbAlbum is valid and throw exception otherwise
-        Album album = new Album(dbAlbum.get("name").toString(), dbAlbum.get("artist").toString());
+        Album album = new Album(dbAlbum.get("title").toString(), dbAlbum.get("artist").toString());
         album.setGenre(dbAlbum.get("genre").toString());
         album.setLabel(dbAlbum.get("label").toString());
         album.setCoverPath(dbAlbum.get("coverPath").toString());
+        album.setYear((Integer) dbAlbum.get("year"));
         album.setCollection(CollectionConverter.convertStringToCollection(dbAlbum.get("collection").toString()));
         
         List<String> tags = new ArrayList<>();

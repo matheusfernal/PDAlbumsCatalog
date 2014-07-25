@@ -7,8 +7,6 @@
 package test;
 
 import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import database.AlbumsDAO;
 import database.PDACMongoClient;
 import java.util.Set;
 import util.PDACProperties;
@@ -29,8 +27,5 @@ public class Main
         {
             System.out.println(s);
         }
-        
-        AlbumsDAO albumsDAO = new AlbumsDAO(db);
-        albumsDAO.insertAlbum("Bionic", "Christina Aguilera", 2010, "pop", "my favorites");
     }
 }

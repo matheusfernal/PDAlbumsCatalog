@@ -27,7 +27,7 @@ public abstract class TrackConverter
     public static Track convertDBObjectToTrack(DBObject dbTrack)
     {
         //TODO: Verify if dbTrack is valid and throw exception otherwise
-        Track track = new Track(Integer.parseInt(dbTrack.get("number").toString()), dbTrack.get("name").toString());
+        Track track = new Track((Integer) dbTrack.get("number"), dbTrack.get("name").toString());
         return track;
     }
 }

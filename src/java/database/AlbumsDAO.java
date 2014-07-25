@@ -46,28 +46,18 @@ public class AlbumsDAO
     
     // Public API
 
-    public void insertAlbum(String title, String artist, Integer year, String genre, String collection) 
+    public void insertAlbum(Album album) 
     {
-        BasicDBObject album = new BasicDBObject("title", title);
+        BasicDBObject dbAlbum = new BasicDBObject("title", album.getTitle())
+                .append("artist", album.getArtist())
+                .append("year", album.getYear())
+                .append("genre", album.getGenre())
+                .append("label", album.getLabel())
+                .append("coverPath", album.getCoverPath());
+                
+        dbAlbum.append("collection", album.getCollection() != null ? album.getCollection().getName() : null);
         
-        if (artist != null) 
-        {
-            album.append("artist", artist);
-        }
-        
-        if (year != null)
-        {
-            album.append("year", year);
-        }
-        
-        if (genre != null)
-        {
-            album.append("genre", genre);
-        }
-        
-        album.append("collection", collection);
-        
-        getAlbums().insert(album);       
+        getAlbums().insert(dbAlbum);       
     }
     
     public List<Album> findAllAlbunsOfCollection(Collection collection)
@@ -75,14 +65,14 @@ public class AlbumsDAO
         getAlbums().createIndex(new BasicDBObject("collection", 1));
         
         DBCursor cursor = getAlbums().find(new BasicDBObject("collection", collection.getName()));
-        List<Album> albums = new ArrayList<>();
+        List<Album> _albums = new ArrayList<>();
         while (cursor.hasNext())
         {
             DBObject dbAlbum = cursor.next();
             Album album = AlbumConverter.convertDBObjectToAlbum(dbAlbum);
-            albums.add(album);
+            _albums.add(album);
         }
         
-        return albums;
+        return _albums;
     }
 }

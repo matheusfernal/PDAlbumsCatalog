@@ -9,6 +9,7 @@ package database;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import entities.Album;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -33,13 +34,13 @@ public class AlbumsDAOTest
     public void setUp()
     {
         this.db = PDACMongoClient.getMongoClientInstance().getDB(PDACProperties.getInstance().getTestDB());
-        db.getCollection("albuns").remove(new BasicDBObject());
+        db.getCollection("albums").remove(new BasicDBObject());
     }
     
     @After
     public void tearDown()
     {
-        db.getCollection("albuns").remove(new BasicDBObject());
+        db.getCollection("albums").remove(new BasicDBObject());
     }
     
     @Test
@@ -55,9 +56,10 @@ public class AlbumsDAOTest
     @Test
     public void testInsertAlbum()
     {
-        System.out.println("insertAlbum");
         AlbumsDAO instance = new AlbumsDAO(db);
-        instance.insertAlbum("Lotus", "Christina Aguilera", 2012, "pop", "my favorites");
+        
+        Album album = new Album("album_1", "artist_1");
+        instance.insertAlbum(album);
         
         long albunsQty = db.getCollection("albums").count();
         
