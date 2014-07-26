@@ -5,6 +5,9 @@
  */
 package ws;
 
+import database.AlbumsDAO;
+import database.PDACMongoClient;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
@@ -14,8 +17,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import util.PDACProperties;
 
 /**
  * REST Web Service
@@ -27,6 +32,18 @@ public class CollectionsResource
 {
     @Context
     private UriInfo context;
+    
+    //TODO: Maybe I'll introduce another layer to avoid using the DAO in the webservice
+    private AlbumsDAO dao;
+    
+    private AlbumsDAO getDao()
+    {
+        if (dao == null)
+        {
+            dao = new AlbumsDAO(PDACMongoClient.getMongoClientInstance().getDB(PDACProperties.getInstance().getMainDB()));
+        }
+        return dao;
+    }
 
     /**
      * Creates a new instance of CollectionsResource
@@ -44,29 +61,9 @@ public class CollectionsResource
     @Produces("application/json")
     public String getCollections()
     {       
-        JSONObject jsonObj = new JSONObject();
-        try
-        {
-            jsonObj.put("idade", 29);
-            jsonObj.put("nome", "Matheus");
-        } catch (JSONException ex)
-        {
-            Logger.getLogger(CollectionsResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return jsonObj.toString();
+        List<String> collections = getDao().findAllCollections();
+        
+        JSONArray jsonCollections = new JSONArray(collections);
+        return jsonCollections.toString();
     }
-
-    /**
-     * PUT method for updating or creating an instance of CollectionsResource
-     *
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @PUT
-    @Consumes("application/json")
-    public void putJson(String content)
-    {
-    }
-
 }

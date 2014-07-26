@@ -157,4 +157,31 @@ public class AlbumsDAOTest
         assertEquals("genre_7u", album7ur.getGenre());
         assertNull(album7ur.getLabel());
     }
+    
+    @Test
+    public void testFindAllCollections()
+    {
+        Album album10 = new Album("album_10", "artist_10");
+        album10.setCollection("B_collection");
+        
+        Album album11 = new Album("album_11", "artist_11");
+        album11.setCollection("A_collection");
+        
+        Album album12 = new Album("album_12", "artist_12");
+        album12.setCollection(null);
+        
+        Album album13 = new Album("album_13", "artist_13");
+        album13.setCollection("C_collection");
+        
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album10);
+        albumsDAO.insertAlbum(album11);
+        albumsDAO.insertAlbum(album12);
+        albumsDAO.insertAlbum(album13);
+        
+        List<String> collections = albumsDAO.findAllCollections();
+        String[] expectedArray = {"<No Collection>", "A_collection", "B_collection", "C_collection"};
+        assertArrayEquals(expectedArray, collections.toArray(new String[4]));
+    }
 }

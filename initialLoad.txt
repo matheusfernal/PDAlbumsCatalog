@@ -3,3 +3,11 @@ db.albums.insert({title:'Jagged Little Pill', artist: 'Alanis Morissette', genre
 db.albums.insert({title:'Lotus', artist: 'Christina Aguilera', genre:'pop', coverPath:null, label: 'RCA', year: NumberInt(2012), collection:null, tags:['xtina', 'lotus', 'female pop']})
 
 db.albums.insert({title:'MDNA', artist: 'Madonna', genre:'pop', coverPath:null, label: 'Interscope', year: NumberInt(2012), collection:'Madge', tags:['madonna', 'female pop']})
+
+db.albums.insert({title:'Hard Candy', artist: 'Madonna', genre:'pop', coverPath:null, label: 'Warner', year: NumberInt(2008), collection:'Madge', tags:['madonna', 'female pop']})
+
+db.albums.insert({title:'XSPB Vol.1', artist: 'Xuxa', genre:"children's music", coverPath:null, label: 'Som Livre', year: NumberInt(2000), collection:'kids', tags:['xuxa', 'kids', 'baixinhos']});
+
+db.albums.insert({title:'4º Xou da Xuxa', artist: 'Xuxa', genre:"children's music", coverPath:null, label: 'Som Livre', year: NumberInt(1989), collection:'kids', tags:['xuxa', 'kids']});
+
+db.albums.insert({title:'The REsistence', artist: 'Muse', genre:'alternative rock', coverPath:null, label: 'Warner', year: NumberInt(2009), collection:'indie', tags:['muse', 'indie', 'band', 'rock']})

@@ -13,9 +13,12 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import entities.Album;
 import entitiesConverters.AlbumConverter;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import org.bson.types.ObjectId;
+import java.util.Collections;
 
 /**
  *
@@ -97,5 +100,21 @@ public class AlbumsDAO
             
             getAlbums().update(searchQuery, newDBAlbum);
         }
+    }
+    
+    public List<String> findAllCollections()
+    {
+        getAlbums().createIndex(new BasicDBObject("collection", 1));
+        
+        List<String> collections = getAlbums().distinct("collection");
+        
+        boolean hadNull = collections.removeAll(Collections.singleton(null));
+        collections.sort((String o1, String o2) -> Collator.getInstance().compare(o1, o2));
+        
+        if (hadNull)
+        {
+            collections.add(0, "<No Collection>");
+        }
+        return collections;
     }
 }
