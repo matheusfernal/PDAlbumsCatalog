@@ -9,6 +9,8 @@ package entitiesConverters;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import entities.Collection;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -21,6 +23,15 @@ public abstract class CollectionConverter
         BasicDBObject dbCollection = new BasicDBObject("name", collection.getName());
         
         return dbCollection;
+    }
+    
+    //TODO: Pending test
+    public static  JSONObject convertCollectionToJsonObject(Collection collection) throws JSONException
+    {
+        JSONObject jsonCollection = new JSONObject();
+        jsonCollection.put("name", collection.getName());
+        
+        return jsonCollection;
     }
     
     public static Collection convertStringToCollection(String collectionName)

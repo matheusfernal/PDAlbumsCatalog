@@ -62,11 +62,16 @@ public class AlbumsDAO
         album.setId(dbAlbum.get("_id").toString());
     }
     
+    /**
+     * 
+     * @param collection The desired collection or null for albums that are not in any collection
+     * @return 
+     */
     public List<Album> findAllAlbunsOfCollection(Collection collection)
     {
         getAlbums().createIndex(new BasicDBObject("collection", 1));
         
-        DBCursor cursor = getAlbums().find(new BasicDBObject("collection", collection.getName()));
+        DBCursor cursor = getAlbums().find(new BasicDBObject("collection", collection != null ? collection.getName() : null));
         List<Album> _albums = new ArrayList<>();
         while (cursor.hasNext())
         {

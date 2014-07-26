@@ -93,6 +93,25 @@ public class AlbumsDAOTest
     }
     
     @Test
+    public void testFindAllAlbunsOfNullCollection()
+    {
+        Album album8 = new Album("album_8", "artist_8");
+        album8.setCollection(null);
+        
+        Album album9 = new Album("album_9", "artist_9");
+        album9.setCollection(CollectionConverter.convertStringToCollection("collection_9"));
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album8);
+        albumsDAO.insertAlbum(album9);
+        
+        Album albumWithoutCollection = albumsDAO.findAllAlbunsOfCollection(null).get(0);
+        
+        assertEquals(album8.getTitle(), albumWithoutCollection.getTitle());
+        assertEquals(album8.getArtist(), albumWithoutCollection.getArtist());
+    }
+    
+    @Test
     public void testInsertAlbumSideEfectOfSettingId()
     {
         Album album5 = new Album("album_5", "artist_5");

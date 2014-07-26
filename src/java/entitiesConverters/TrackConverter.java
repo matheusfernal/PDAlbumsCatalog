@@ -9,6 +9,8 @@ package entitiesConverters;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import entities.Track;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -22,6 +24,16 @@ public abstract class TrackConverter
                 .append("name", track.getName());
         
         return dbTrack;
+    }
+    
+    //TODO: Pending test
+    public static JSONObject convertTrackToJsonObject(Track track) throws JSONException
+    {
+        JSONObject jsonTrack = new JSONObject();
+        jsonTrack.put("number", track.getNumber());
+        jsonTrack.put("name", track.getName());
+                
+        return jsonTrack;
     }
     
     public static Track convertDBObjectToTrack(DBObject dbTrack)

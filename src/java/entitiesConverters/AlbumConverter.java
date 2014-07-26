@@ -14,6 +14,10 @@ import entities.Track;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import org.bson.types.ObjectId;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -59,10 +63,45 @@ public abstract class AlbumConverter
         return dbAlbum;
     }
     
+    //TODO: Pending test
+    public static JSONObject convertAlbumToJsonObject(Album album) throws JSONException
+    {
+        JSONObject jsonAlbum = new JSONObject();
+        jsonAlbum.put("title", album.getTitle());
+        jsonAlbum.put("artist", album.getArtist());
+        jsonAlbum.put("genre", album.getGenre());
+        jsonAlbum.put("label", album.getLabel());
+        jsonAlbum.put("coverPath", album.getCoverPath());
+        jsonAlbum.put("year", album.getYear());
+        
+        JSONObject jsonCollection = null;
+        if (album.getCollection() != null)
+        {
+            jsonCollection = CollectionConverter.convertCollectionToJsonObject(album.getCollection());
+        }
+        jsonAlbum.put("collection", jsonCollection);
+        
+        jsonAlbum.put("tags", new JSONArray(album.getTags()));
+        
+        List<JSONObject> jsonTracks = new ArrayList<>();
+        if (album.getTracks() != null && !album.getTracks().isEmpty())
+        {
+            for (Track track : album.getTracks())
+            {
+                jsonTracks.add(TrackConverter.convertTrackToJsonObject(track));
+            }
+            
+        }
+        jsonAlbum.append("tracks", jsonTracks);
+        
+        return jsonAlbum;
+    }
+    
     public static Album convertDBObjectToAlbum(DBObject dbAlbum)
     {
         //TODO: Verify if dbAlbum is valid and throw exception otherwise
         Album album = new Album((String) dbAlbum.get("title"), (String) dbAlbum.get("artist"));
+        album.setId(dbAlbum.get("_id").toString());
         album.setGenre((String) dbAlbum.get("genre"));
         album.setLabel((String) dbAlbum.get("label"));
         album.setCoverPath((String) dbAlbum.get("coverPath"));
