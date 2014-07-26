@@ -42,7 +42,7 @@ public class CollectionsResource
      */
     @GET
     @Produces("application/json")
-    public String getJson()
+    public String getCollections()
     {       
         JSONObject jsonObj = new JSONObject();
         try
@@ -55,15 +55,6 @@ public class CollectionsResource
         }
 
         return jsonObj.toString();
-    }
-
-    @GET
-    @Path("otherget")
-    @Produces("application/json")
-    public String getOther()
-    {
-        String json = "{nome: 'Felipe', idade: 26}";
-        return json;
     }
 
     /**

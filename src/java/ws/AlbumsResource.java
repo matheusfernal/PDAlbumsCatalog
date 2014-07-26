@@ -9,9 +9,7 @@ package ws;
 import database.AlbumsDAO;
 import database.PDACMongoClient;
 import entities.Album;
-import entities.Collection;
 import entitiesConverters.AlbumConverter;
-import entitiesConverters.CollectionConverter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,10 +72,7 @@ public class AlbumsResource
     @Path("/{collection}")
     public String getAlbumsOfCollection(@PathParam("collection") final String collectionStr)
     {
-        Collection collection = CollectionConverter.convertStringToCollection(collectionStr);
-        
-        return findAlbums(collection);
-        
+        return findAlbums(collectionStr);
     }
 
     /**
@@ -91,7 +86,7 @@ public class AlbumsResource
     {
     }
     
-    private String findAlbums(Collection collection)
+    private String findAlbums(String collection)
     {
         List<Album> albums = getDao().findAllAlbunsOfCollection(collection);
         

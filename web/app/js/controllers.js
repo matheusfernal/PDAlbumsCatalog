@@ -2,10 +2,12 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', [])
-  .controller('MyCtrl1', ['$scope', function($scope) {
+var pdAlbumsCatalogControllers = angular.module('PDAlbumsCatalog.controllers', []);
 
-  }])
-  .controller('MyCtrl2', ['$scope', function($scope) {
 
-  }]);
+pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http',
+    function($scope, $http) {
+        $http.get('../webresources/albums').success(function(data) {
+            $scope.albums = data;
+        });
+    }]);

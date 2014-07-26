@@ -9,8 +9,6 @@ package database;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import entities.Album;
-import entities.Collection;
-import entitiesConverters.CollectionConverter;
 import java.util.List;
 import org.junit.After;
 import static org.junit.Assert.*;
@@ -70,16 +68,16 @@ public class AlbumsDAOTest
     public void testFindAllAlbunsOfCollection()
     {
         Album album1 = new Album("album_1", "artist_1");
-        album1.setCollection(CollectionConverter.convertStringToCollection("collection_1"));
+        album1.setCollection("collection_1");
         
         Album album2 = new Album("album_2", "artist_2");
-        album2.setCollection(CollectionConverter.convertStringToCollection("collection_1"));
+        album2.setCollection("collection_1");
         
         Album album3 = new Album("album_3", "artist_3");
-        album3.setCollection(CollectionConverter.convertStringToCollection("collection_1"));
+        album3.setCollection("collection_1");
         
         Album album4 = new Album("album_4", "artist_4");
-        album4.setCollection(CollectionConverter.convertStringToCollection("collection_2"));
+        album4.setCollection("collection_2");
         
         AlbumsDAO albumsDAO = new AlbumsDAO(db);
         albumsDAO.insertAlbum(album1);
@@ -87,7 +85,7 @@ public class AlbumsDAOTest
         albumsDAO.insertAlbum(album3);
         albumsDAO.insertAlbum(album4);
         
-        List<Album> albumsOfCollection1 = albumsDAO.findAllAlbunsOfCollection(CollectionConverter.convertStringToCollection("collection_1"));
+        List<Album> albumsOfCollection1 = albumsDAO.findAllAlbunsOfCollection("collection_1");
         
         assertEquals(3, albumsOfCollection1.size());
     }
@@ -99,7 +97,7 @@ public class AlbumsDAOTest
         album8.setCollection(null);
         
         Album album9 = new Album("album_9", "artist_9");
-        album9.setCollection(CollectionConverter.convertStringToCollection("collection_9"));
+        album9.setCollection("collection_9");
         
         AlbumsDAO albumsDAO = new AlbumsDAO(db);
         albumsDAO.insertAlbum(album8);

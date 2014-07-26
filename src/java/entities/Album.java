@@ -24,7 +24,7 @@ public class Album {
     private String coverPath;
     private List<Track> tracks;
     private List<String> tags;
-    private Collection collection;
+    private String collection;
     
     public Album(String title, String artist)
     {
@@ -85,12 +85,12 @@ public class Album {
         this.tags = tags;
     }
 
-    public Collection getCollection()
+    public String getCollection()
     {
         return collection;
     }
 
-    public void setCollection(Collection collection)
+    public void setCollection(String collection)
     {
         this.collection = collection;
     }
@@ -129,16 +129,16 @@ public class Album {
     public int hashCode()
     {
         int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.id);
-        hash = 61 * hash + Objects.hashCode(this.title);
-        hash = 61 * hash + Objects.hashCode(this.genre);
-        hash = 61 * hash + Objects.hashCode(this.artist);
-        hash = 61 * hash + Objects.hashCode(this.label);
-        hash = 61 * hash + Objects.hashCode(this.year);
-        hash = 61 * hash + Objects.hashCode(this.coverPath);
-        hash = 61 * hash + Objects.hashCode(this.tracks);
-        hash = 61 * hash + Objects.hashCode(this.tags);
-        hash = 61 * hash + Objects.hashCode(this.collection);
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.title);
+        hash = 89 * hash + Objects.hashCode(this.genre);
+        hash = 89 * hash + Objects.hashCode(this.artist);
+        hash = 89 * hash + Objects.hashCode(this.label);
+        hash = 89 * hash + Objects.hashCode(this.year);
+        hash = 89 * hash + Objects.hashCode(this.coverPath);
+        hash = 89 * hash + Objects.hashCode(this.tracks);
+        hash = 89 * hash + Objects.hashCode(this.tags);
+        hash = 89 * hash + Objects.hashCode(this.collection);
         return hash;
     }
 

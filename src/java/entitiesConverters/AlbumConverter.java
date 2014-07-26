@@ -32,14 +32,8 @@ public abstract class AlbumConverter
                 .append("genre", album.getGenre())
                 .append("label", album.getLabel())
                 .append("coverPath", album.getCoverPath())
-                .append("year", album.getYear());
-        
-        String collectionName = null;
-        if (album.getCollection() != null)
-        {
-            collectionName = album.getCollection().getName();
-        }
-        dbAlbum.append("collection", collectionName);
+                .append("year", album.getYear())
+                .append("collection", album.getCollection());
         
         BasicDBList dbTags = new BasicDBList();
         if (album.getTags() != null && !album.getTags().isEmpty()) {
@@ -73,13 +67,7 @@ public abstract class AlbumConverter
         jsonAlbum.put("label", album.getLabel());
         jsonAlbum.put("coverPath", album.getCoverPath());
         jsonAlbum.put("year", album.getYear());
-        
-        JSONObject jsonCollection = null;
-        if (album.getCollection() != null)
-        {
-            jsonCollection = CollectionConverter.convertCollectionToJsonObject(album.getCollection());
-        }
-        jsonAlbum.put("collection", jsonCollection);
+        jsonAlbum.put("collection", album.getCollection());
         
         jsonAlbum.put("tags", new JSONArray(album.getTags()));
         
@@ -106,7 +94,7 @@ public abstract class AlbumConverter
         album.setLabel((String) dbAlbum.get("label"));
         album.setCoverPath((String) dbAlbum.get("coverPath"));
         album.setYear((Integer) dbAlbum.get("year"));
-        album.setCollection(CollectionConverter.convertStringToCollection((String) dbAlbum.get("collection")));
+        album.setCollection((String) dbAlbum.get("collection"));
         
         List<String> tags = new ArrayList<>();
         if (dbAlbum.get("tags") != null && dbAlbum.get("tags") instanceof BasicDBList)

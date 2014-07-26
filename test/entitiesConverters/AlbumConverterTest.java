@@ -9,7 +9,6 @@ package entitiesConverters;
 import com.mongodb.BasicDBList;
 import com.mongodb.DBObject;
 import entities.Album;
-import entities.Collection;
 import entities.Track;
 import java.util.Arrays;
 import org.junit.After;
@@ -48,7 +47,7 @@ public class AlbumConverterTest
         album.setGenre("genre_1");
         album.setCoverPath("cover_path_1");
         album.setLabel("label_1");
-        album.setCollection(new Collection("collection_1"));
+        album.setCollection("collection_1");
         album.setTags(Arrays.asList("tag_1", "tag_2", "tag_3", "tag_4"));
         album.setTracks(Arrays.asList(new Track(1, "track_1"), new Track(2, "track_2"), new Track(3, "track_3"), new Track(4, "track_4")));
         
@@ -59,7 +58,7 @@ public class AlbumConverterTest
         assertEquals(album.getGenre(), dbAlbum.get("genre"));
         assertEquals(album.getCoverPath(), dbAlbum.get("coverPath"));
         assertEquals(album.getLabel(), dbAlbum.get("label"));
-        assertEquals(album.getCollection().getName(), dbAlbum.get("collection"));
+        assertEquals(album.getCollection(), dbAlbum.get("collection"));
         
         String[] dbTags = new String[4];
         int i = 0;

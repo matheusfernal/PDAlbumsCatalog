@@ -11,9 +11,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.WriteResult;
 import entities.Album;
-import entities.Collection;
 import entitiesConverters.AlbumConverter;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +52,8 @@ public class AlbumsDAO
                 .append("year", album.getYear())
                 .append("genre", album.getGenre())
                 .append("label", album.getLabel())
-                .append("coverPath", album.getCoverPath());
-                
-        dbAlbum.append("collection", album.getCollection() != null ? album.getCollection().getName() : null);
+                .append("coverPath", album.getCoverPath())
+                .append("collection", album.getCollection());
         
         getAlbums().insert(dbAlbum);
         album.setId(dbAlbum.get("_id").toString());
@@ -67,11 +64,11 @@ public class AlbumsDAO
      * @param collection The desired collection or null for albums that are not in any collection
      * @return 
      */
-    public List<Album> findAllAlbunsOfCollection(Collection collection)
+    public List<Album> findAllAlbunsOfCollection(String collection)
     {
         getAlbums().createIndex(new BasicDBObject("collection", 1));
         
-        DBCursor cursor = getAlbums().find(new BasicDBObject("collection", collection != null ? collection.getName() : null));
+        DBCursor cursor = getAlbums().find(new BasicDBObject("collection", collection));
         List<Album> _albums = new ArrayList<>();
         while (cursor.hasNext())
         {
