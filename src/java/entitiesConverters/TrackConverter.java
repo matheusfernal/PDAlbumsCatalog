@@ -26,7 +26,6 @@ public abstract class TrackConverter
         return dbTrack;
     }
     
-    //TODO: Pending test
     public static JSONObject convertTrackToJsonObject(Track track) throws JSONException
     {
         JSONObject jsonTrack = new JSONObject();
@@ -34,6 +33,13 @@ public abstract class TrackConverter
         jsonTrack.put("name", track.getName());
                 
         return jsonTrack;
+    }
+    
+    public static Track convertJsonObjectToTrack(JSONObject jsonTrack) throws JSONException
+    {
+        Track track = new Track(jsonTrack.getInt("number"), jsonTrack.getString("name"));
+        
+        return track;
     }
     
     public static Track convertDBObjectToTrack(DBObject dbTrack)

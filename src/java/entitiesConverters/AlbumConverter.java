@@ -57,7 +57,6 @@ public abstract class AlbumConverter
         return dbAlbum;
     }
     
-    //TODO: Pending test
     public static JSONObject convertAlbumToJsonObject(Album album) throws JSONException
     {
         JSONObject jsonAlbum = new JSONObject();
@@ -83,6 +82,38 @@ public abstract class AlbumConverter
         jsonAlbum.append("tracks", jsonTracks);
         
         return jsonAlbum;
+    }
+    
+    public static Album convertJsonObjectToAlbum(JSONObject jsonAlbum) throws JSONException
+    {
+        Album album = new Album(jsonAlbum.getString("title"), jsonAlbum.getString("artist"));
+        album.setGenre(jsonAlbum.getString("genre"));
+        album.setLabel(jsonAlbum.getString("label"));
+        album.setCoverPath(jsonAlbum.getString("coverPath"));
+        album.setYear(jsonAlbum.getInt("year"));
+        album.setCollection(jsonAlbum.getString("collection"));
+        
+        JSONArray jsonTags = jsonAlbum.getJSONArray("tags");
+        if (jsonTags.length() > 0)
+        {
+            album.setTags(new ArrayList<>(jsonTags.length()));
+            for (int i = 0; i < jsonTags.length(); i++)
+            {
+                album.getTags().add(jsonTags.getString(i));
+            }
+        }
+        
+        JSONArray jsonTracks = jsonAlbum.getJSONArray("tracks");
+        if (jsonTracks.length() > 0)
+        {
+            album.setTracks(new ArrayList<>(jsonTracks.length()));
+            for (int i = 0; i < jsonTracks.length(); i++)
+            {
+                album.getTracks().add(TrackConverter.convertJsonObjectToTrack(jsonTracks.getJSONObject(i)));
+            }
+        }
+        
+        return album;
     }
     
     public static Album convertDBObjectToAlbum(DBObject dbAlbum)

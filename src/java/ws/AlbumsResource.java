@@ -23,6 +23,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import util.PDACProperties;
 
 /**
@@ -84,8 +85,6 @@ public class AlbumsResource
         return albumsJsonStr;
     }
     
-    
-
     /**
      * PUT method for updating or creating an instance of AlbumsResource
      * @param content representation for the resource
@@ -93,8 +92,17 @@ public class AlbumsResource
      */
     @PUT
     @Consumes("application/json")
-    public void putJson(String content)
+    @Path("/insert")
+    public void putNewAlbum(String content)
     {
+        try 
+        {
+            JSONObject jsonAlbum = new JSONObject(content);
+            System.out.println("content");
+        } catch (JSONException ex)
+        {
+            Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private String findAlbums(String collection)

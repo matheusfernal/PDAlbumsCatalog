@@ -23,7 +23,7 @@
                 <p>
                     Year: <input kendo-masked-text-box k-mask="'0000'" ng-model="newAlbum.year" />
                 </p>
-                    Cover: <input placeholder="Paste the image URL..." ng-model="newAlbum.coverPath">
+                    Cover: <input placeholder="Paste the URL of an image on the web..." ng-model="newAlbum.coverPath">
                 <p>
                     
                 </p>
@@ -41,6 +41,10 @@
             </ol>
             
         </div>
+    </div>
+    <div class="row">
+        <button kendo-button class="k-primary" ng-click="insertAlbum()">Save album</button> 
+        <a kendo-button href="#/albums">Back</a>
     </div>
 </div>
 

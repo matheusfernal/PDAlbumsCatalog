@@ -6,7 +6,7 @@ var pdAlbumsCatalogControllers = angular.module('PDAlbumsCatalog.controllers', [
 
 pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http',
     function($scope, $http) {
-        $http.get('../webresources/albums').success(function(data) {
+        $http.get('../webresources/albums').success(function(data, status, headers, config) {
             $scope.albums = data;
         });
         
@@ -107,5 +107,13 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
                 $scope.coverImageURL = 'img/albumart.jpg';
             }
         });
+        
+        $scope.insertAlbum = function() {
+            $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
+                alert('sucesso');
+            }).error(function(data, status, headers, config){
+                alert('erro');
+            });
+        };
     }
 ]);

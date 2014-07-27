@@ -9,6 +9,8 @@ package entitiesConverters;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import entities.Track;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +61,30 @@ public class TrackConverterTest
         
         assertEquals(dbTrack.get("number"), track.getNumber());
         assertEquals(dbTrack.get("name"), track.getName());
+    }
+    
+    @Test
+    public void testConvertJsonObjectToTrack() throws JSONException
+    {
+        JSONObject jsonTrack = new JSONObject();
+        jsonTrack.put("number", 3);
+        jsonTrack.put("name", "track_3");
+        
+        Track track = TrackConverter.convertJsonObjectToTrack(jsonTrack);
+        
+        assertEquals(3, track.getNumber());
+        assertEquals("track_3", track.getName());
+    }
+    
+    @Test
+    public void testConvertTrackToJsonObject() throws JSONException
+    {
+        Track track = new Track(4, "track_4");
+        
+        JSONObject jsonTrack = TrackConverter.convertTrackToJsonObject(track);
+        
+        assertEquals(4, jsonTrack.getInt("number"));
+        assertEquals("track_4", jsonTrack.getString("name"));
     }
     
 }
