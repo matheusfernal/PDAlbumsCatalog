@@ -28,3 +28,21 @@
   content: "";
   padding: 0;
 }
+
+.thumb {
+  float: left;
+  margin: -0.5em 1em 1.5em 0;
+  padding-bottom: 1em;
+  height: 50px;
+  width: 50px;
+}
+
+.albums {
+  list-style: none;
+}
+
+.albums li {
+  clear: both;
+  height: 71px;
+  padding-top: 15px;
+}

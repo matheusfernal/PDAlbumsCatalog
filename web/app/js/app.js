@@ -4,10 +4,11 @@
 // Declare app level module which depends on filters, and services
 var pdAlbumsCatalogApp = angular.module('PDAlbumsCatalog', [
   'ngRoute',
+  'kendo.directives',
   'PDAlbumsCatalog.filters',
   'PDAlbumsCatalog.services',
   'PDAlbumsCatalog.directives',
-  'PDAlbumsCatalog.controllers'
+  'PDAlbumsCatalog.controllers',
 ]);
 
 pdAlbumsCatalogApp.config(['$routeProvider', 

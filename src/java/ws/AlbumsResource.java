@@ -64,7 +64,7 @@ public class AlbumsResource
     @Produces("application/json")
     public String getAlbums()
     {
-        return findAlbums(null);
+        return findAllAlbums();
     }
 
     @GET
@@ -72,8 +72,19 @@ public class AlbumsResource
     @Path("/{collection}")
     public String getAlbumsOfCollection(@PathParam("collection") final String collectionStr)
     {
-        return findAlbums(collectionStr);
+        String albumsJsonStr = "";
+        if (collectionStr.equals("<No Collection>"))
+        {
+            albumsJsonStr = findAlbums(null);
+        }
+        else
+        {
+            albumsJsonStr = findAlbums(collectionStr);
+        }
+        return albumsJsonStr;
     }
+    
+    
 
     /**
      * PUT method for updating or creating an instance of AlbumsResource
@@ -90,6 +101,13 @@ public class AlbumsResource
     {
         List<Album> albums = getDao().findAllAlbunsOfCollection(collection);
         
+        JSONArray jsonAlbums = createAlbumsJson(albums);
+        
+        return jsonAlbums.toString();
+    }
+
+    private JSONArray createAlbumsJson(List<Album> albums)
+    {
         JSONArray jsonAlbums = new JSONArray();
         try
         {
@@ -101,6 +119,14 @@ public class AlbumsResource
         {
             Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return jsonAlbums;
+    }
+    
+    private String findAllAlbums()
+    {
+        List<Album> albums = getDao().findAllAlbums();
+        
+        JSONArray jsonAlbums = createAlbumsJson(albums);
         
         return jsonAlbums.toString();
     }

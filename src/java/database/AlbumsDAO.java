@@ -72,6 +72,11 @@ public class AlbumsDAO
         getAlbums().createIndex(new BasicDBObject("collection", 1));
         
         DBCursor cursor = getAlbums().find(new BasicDBObject("collection", collection));
+        return createAlbumsFromCursor(cursor);
+    }
+
+    private List<Album> createAlbumsFromCursor(DBCursor cursor)
+    {
         List<Album> _albums = new ArrayList<>();
         while (cursor.hasNext())
         {
@@ -81,6 +86,12 @@ public class AlbumsDAO
         }
         
         return _albums;
+    }
+    
+    public List<Album> findAllAlbums()
+    {
+        DBCursor cursor = getAlbums().find();
+        return createAlbumsFromCursor(cursor);
     }
     
     public Album findAlbumById(String id)

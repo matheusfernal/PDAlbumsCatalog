@@ -184,4 +184,30 @@ public class AlbumsDAOTest
         String[] expectedArray = {"<No Collection>", "A_collection", "B_collection", "C_collection"};
         assertArrayEquals(expectedArray, collections.toArray(new String[4]));
     }
+    
+    @Test
+    public void testFindAllAlbums()
+    {
+        Album album14 = new Album("album_14", "artist_14");
+        album14.setCollection("collection_14");
+        
+        Album album15 = new Album("album_15", "artist_15");
+        album15.setCollection("collection_14");
+        
+        Album album16 = new Album("album_16", "artist_16");
+        album16.setCollection(null);
+        
+        Album album17 = new Album("album_17", "artist_17");
+        album17.setCollection("collection_15");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album14);
+        albumsDAO.insertAlbum(album15);
+        albumsDAO.insertAlbum(album16);
+        albumsDAO.insertAlbum(album17);
+        
+        List<Album> albumsInserted = albumsDAO.findAllAlbums();
+        
+        assertEquals(4, albumsInserted.size());
+    }
 }

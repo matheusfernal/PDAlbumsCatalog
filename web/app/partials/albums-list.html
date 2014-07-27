@@ -1,1 +1,27 @@
-<p>This is the partial for view 1.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--Sidebar content-->
+            
+            Collection:
+            <select kendo-combo-box
+                    k-placeholder="'Select a collection'"
+                    k-filter="contains"
+                    k-auto-bind="false"
+                    k-min-length="2"
+                    k-data-source="collectionsDataSource"
+                    k-change="collectionSelected"></select>
+        </div>
+        <div class="col-md-10">
+            <!--Body content-->
+
+            <ul class="albums">
+                <li ng-repeat="album in albums" class="thumbnail">
+                    <a href="#" class="thumb"><img ng-src="{{album| albumCoverSrc}}"></a>
+                    <a href="#">{{album.title}}</a>
+                    <p>{{album.artist}}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
