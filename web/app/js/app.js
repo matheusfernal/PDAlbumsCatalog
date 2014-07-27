@@ -9,6 +9,7 @@ var pdAlbumsCatalogApp = angular.module('PDAlbumsCatalog', [
   'PDAlbumsCatalog.services',
   'PDAlbumsCatalog.directives',
   'PDAlbumsCatalog.controllers',
+  //'PDAlbumsCatalog.animations'
 ]);
 
 pdAlbumsCatalogApp.config(['$routeProvider', 
