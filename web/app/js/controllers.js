@@ -4,7 +4,6 @@
 
 var pdAlbumsCatalogControllers = angular.module('PDAlbumsCatalog.controllers', []);
 
-
 pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http',
     function($scope, $http) {
         $http.get('../webresources/albums').success(function(data) {
@@ -28,4 +27,50 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
                 $scope.albums = data;
             });
         };
-    }]);
+    }
+]);
+
+pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http',
+    function($scope, $http) {
+        $scope.newAlbum = {
+            title: '',
+            artist: '',
+            genre: '',
+            label: '',
+            collection: '',
+            year: new Date().getFullYear(),
+            tags: [],
+            tracks: []
+        };
+        
+        $scope.artistsDataSource = {
+            type: 'json',
+            serverFiltering: true,
+            transport: {
+                read: {
+                    url: '../webresources/artists'
+                }
+            }
+        };
+        
+        $scope.genresDataSource = {
+            type: 'json',
+            serverFiltering: true,
+            transport: {
+                read: {
+                    url: '../webresources/genres'
+                }
+            }
+        };
+        
+        $scope.labelsDataSource = {
+            type: 'json',
+            serverFiltering: true,
+            transport: {
+                read: {
+                    url: '../webresources/labels'
+                }
+            }
+        };
+    }
+]);

@@ -19,6 +19,10 @@ pdAlbumsCatalogApp.config(['$routeProvider',
                 templateUrl: 'partials/albums-list.html',
                 controller: 'AlbumsListController'
             }).
+            when('/albums/insert', {
+                templateUrl: 'partials/album-insert.html',
+                controller: 'AlbumInsertController'
+            }).
             otherwise({
                 redirectTo: '/albums'
             });

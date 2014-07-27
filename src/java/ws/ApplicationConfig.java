@@ -31,7 +31,10 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ws.AlbumsResource.class);
+        resources.add(ws.ArtistsResource.class);
         resources.add(ws.CollectionsResource.class);
+        resources.add(ws.GenresResource.class);
+        resources.add(ws.LabelsResource.class);
     }
     
 }

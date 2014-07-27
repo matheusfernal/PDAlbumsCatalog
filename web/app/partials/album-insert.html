@@ -1,0 +1,20 @@
+<fieldset>
+    <p>
+        Title: <input ng-model="newAlbum.title" type="text" placeholder="Type a title...">
+    </p>
+    <p>
+        Artist: <input kendo-auto-complete ng-model="newAlbum.artist" k-data-source="artistsDataSource" placeholder="Type an artist..." />
+    </p>
+    <p>
+        Genre: <input kendo-auto-complete ng-model="newAlbum.genre" k-data-source="genresDataSource" placeholder="Type a genre..." />
+    </p>
+    <p>
+        Label: <input kendo-auto-complete ng-model="newAlbum.label" k-data-source="labelsDataSource" placeholder="Type a label..." />
+    </p>
+    <p>
+        Year: <input kendo-masked-text-box k-mask="'0000'" ng-model="newAlbum.year" />
+    </p>
+    <p>
+        
+    </p>
+</fieldset>

@@ -44,9 +44,6 @@ public class AlbumsDAO
     {
         return albums;
     }
-    
-    
-    // Public API
 
     public void insertAlbum(Album album) 
     {
@@ -128,4 +125,30 @@ public class AlbumsDAO
         }
         return collections;
     }
+    
+    public List<String> findAllArtists()
+    {
+        return getDistinctStringElement("artist");
+    }
+    
+    public List<String> findAllGenres()
+    {
+        return getDistinctStringElement("genre");
+    }
+
+    private List<String> getDistinctStringElement(String element)
+    {
+        getAlbums().createIndex(new BasicDBObject(element, 1));
+        
+        List<String> elements = getAlbums().distinct(element);
+        elements.removeAll(Collections.singleton(null));
+        elements.sort((String o1, String o2) -> Collator.getInstance().compare(o1, o2));
+        
+        return elements;
+    }
+    
+    public List<String> findAllLabels()
+    {
+        return getDistinctStringElement("label");
+    } 
 }

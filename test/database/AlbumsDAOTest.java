@@ -210,4 +210,75 @@ public class AlbumsDAOTest
         
         assertEquals(4, albumsInserted.size());
     }
+    
+    @Test
+    public void testFindAllArtists()
+    {
+        Album album18 = new Album("album_18", "C_artist");
+        Album album19 = new Album("album_19", "A_artist");
+        Album album20 = new Album("album_20", "D_artist");
+        Album album21 = new Album("album_21", "B_artist");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album18);
+        albumsDAO.insertAlbum(album19);
+        albumsDAO.insertAlbum(album20);
+        albumsDAO.insertAlbum(album21);
+        
+        List<String> allArtists = albumsDAO.findAllArtists();
+        
+        String[] expectedArtists = {"A_artist", "B_artist", "C_artist", "D_artist"};
+        
+        assertArrayEquals(expectedArtists, allArtists.toArray(new String[4]));
+    }
+    
+    @Test
+    public void testFindAllGenres()
+    {
+        Album album22 = new Album("album_22", "artist_22");
+        album22.setGenre("C_genre");
+        Album album23 = new Album("album_23", "artist_23");
+        album23.setGenre(null);
+        Album album24 = new Album("album_24", "artist_24");
+        album24.setGenre("A_genre");
+        Album album25 = new Album("album_25", "artist_25");
+        album25.setGenre("B_genre");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album22);
+        albumsDAO.insertAlbum(album23);
+        albumsDAO.insertAlbum(album24);
+        albumsDAO.insertAlbum(album25);
+        
+        List<String> allGenres = albumsDAO.findAllGenres();
+        
+        String[] expectedGenres = {"A_genre", "B_genre", "C_genre"};
+        
+        assertArrayEquals(expectedGenres, allGenres.toArray(new String[3]));
+    }
+    
+    @Test
+    public void testFindAllLabels()
+    {
+        Album album26 = new Album("album_22", "artist_22");
+        album26.setLabel("C_label");
+        Album album27 = new Album("album_23", "artist_23");
+        album27.setLabel(null);
+        Album album28 = new Album("album_24", "artist_24");
+        album28.setLabel("A_label");
+        Album album29 = new Album("album_25", "artist_25");
+        album29.setLabel("B_label");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        albumsDAO.insertAlbum(album26);
+        albumsDAO.insertAlbum(album27);
+        albumsDAO.insertAlbum(album28);
+        albumsDAO.insertAlbum(album29);
+        
+        List<String> allLabels = albumsDAO.findAllLabels();
+        
+        String[] expectedLabels = {"A_label", "B_label", "C_label"};
+        
+        assertArrayEquals(expectedLabels, allLabels.toArray(new String[3]));
+    }
 }
