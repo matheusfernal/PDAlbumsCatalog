@@ -25,7 +25,7 @@
             <ul class="albums">
                 <li ng-repeat="album in albums | filter:query"
                     class="thumbnail">
-                    <a href="#" class="thumb"><img ng-src="{{album| albumCoverSrc}}"></a>
+                    <a href="#" class="thumb"><img ng-src="{{album | albumCoverSrc}}"></a>
                     <a href="#">{{album.title}}</a>
                     <p>{{album.artist}}</p>
                 </li>

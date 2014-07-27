@@ -38,6 +38,7 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             genre: '',
             label: '',
             collection: '',
+            coverPath: '',
             year: new Date().getFullYear(),
             tags: [],
             tracks: []
@@ -72,5 +73,36 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
                 }
             }
         };
+        
+        $scope.coverImageURL = 'img/albumart.jpg';
+        $scope.newTrack = '';
+        
+        $scope.addNewTrack = function() {
+            if ($scope.newTrack !== '') {
+                $scope.newAlbum.tracks.push({ name: $scope.newTrack, number: $scope.newAlbum.tracks.length + 1 });
+                $scope.newTrack = '';
+            }
+        };
+        
+        $scope.addNewTrackEnter = function(e) {
+            if (e.keyCode === 13) {
+                $scope.addNewTrack();
+            }  
+        };
+        
+        $scope.trackReordered = function(e) {
+
+        };
+        
+        $scope.removeTrack = function(index)
+        {
+            $scope.newAlbum.tracks.splice(index, 1);
+        };
+        
+        $scope.$watch('newAlbum.coverPath', function() {
+            if ($scope.newAlbum.coverPath !== '') {
+                $scope.coverImageURL = $scope.newAlbum.coverPath;
+            }
+        });
     }
 ]);

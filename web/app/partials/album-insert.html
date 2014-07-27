@@ -1,20 +1,46 @@
-<fieldset>
-    <p>
-        Title: <input ng-model="newAlbum.title" type="text" placeholder="Type a title...">
-    </p>
-    <p>
-        Artist: <input kendo-auto-complete ng-model="newAlbum.artist" k-data-source="artistsDataSource" placeholder="Type an artist..." />
-    </p>
-    <p>
-        Genre: <input kendo-auto-complete ng-model="newAlbum.genre" k-data-source="genresDataSource" placeholder="Type a genre..." />
-    </p>
-    <p>
-        Label: <input kendo-auto-complete ng-model="newAlbum.label" k-data-source="labelsDataSource" placeholder="Type a label..." />
-    </p>
-    <p>
-        Year: <input kendo-masked-text-box k-mask="'0000'" ng-model="newAlbum.year" />
-    </p>
-    <p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <image class="album-cover-big" ng-src="{{coverImageURL}}">
         
-    </p>
-</fieldset>
+        </div>
+
+        <div class="col-md-5">
+
+            <fieldset>
+                <p>
+                    Title: <input ng-model="newAlbum.title" type="text" placeholder="Type a title...">
+                </p>
+                <p>
+                    Artist: <input kendo-auto-complete ng-model="newAlbum.artist" k-data-source="artistsDataSource" placeholder="Type an artist..." />
+                </p>
+                <p>
+                    Genre: <input kendo-auto-complete ng-model="newAlbum.genre" k-data-source="genresDataSource" placeholder="Type a genre..." />
+                </p>
+                <p>
+                    Label: <input kendo-auto-complete ng-model="newAlbum.label" k-data-source="labelsDataSource" placeholder="Type a label..." />
+                </p>
+                <p>
+                    Year: <input kendo-masked-text-box k-mask="'0000'" ng-model="newAlbum.year" />
+                </p>
+                    Cover: <input placeholder="Paste the image URL..." ng-model="newAlbum.coverPath">
+                <p>
+                    
+                </p>
+            </fieldset>
+
+        </div>
+        <div class="col-md-4">
+            <h5>Tracks</h5><!--<span>(drag to reorder)</span>-->
+            <p>
+                New Track: <input ng-model="newTrack" ng-keyup="addNewTrackEnter($event)"><button style="margin-left: 6px;" kendo-button ng-click="addNewTrack()">+</button>
+            </p>
+<!--            <ol kendo-sortable k-change="trackReordered">-->
+            <ol>
+                <li ng-repeat="track in newAlbum.tracks">{{track.name}}<button kendo-button style="margin-left: 6px;" ng-click="removeTrack($index)">x</button></li>
+            </ol>
+            
+        </div>
+    </div>
+</div>
+

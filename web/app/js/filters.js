@@ -15,3 +15,9 @@ pdAlbumsCatalogFilters.filter('albumCoverSrc', function(){
        return album.hasOwnProperty('coverPath') ? album.coverPath : 'img/albumart.jpg';
    } ;
 });
+
+pdAlbumsCatalogFilters.filter('hideDefaultCoverURL', function(){
+   return function(coverURL) {
+       return coverURL === 'img/albumart.jpg' ? '' : coverURL;
+   } ;
+});
