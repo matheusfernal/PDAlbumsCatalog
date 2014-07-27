@@ -103,6 +103,9 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             if ($scope.newAlbum.coverPath !== '') {
                 $scope.coverImageURL = $scope.newAlbum.coverPath;
             }
+            else {
+                $scope.coverImageURL = 'img/albumart.jpg';
+            }
         });
     }
 ]);
