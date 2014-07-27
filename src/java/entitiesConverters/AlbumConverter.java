@@ -70,16 +70,16 @@ public abstract class AlbumConverter
         
         jsonAlbum.put("tags", new JSONArray(album.getTags()));
         
-        List<JSONObject> jsonTracks = new ArrayList<>();
+        JSONArray jsonTracks = new JSONArray();
         if (album.getTracks() != null && !album.getTracks().isEmpty())
         {
             for (Track track : album.getTracks())
             {
-                jsonTracks.add(TrackConverter.convertTrackToJsonObject(track));
+                jsonTracks.put(TrackConverter.convertTrackToJsonObject(track));
             }
             
         }
-        jsonAlbum.append("tracks", jsonTracks);
+        jsonAlbum.put("tracks", jsonTracks);
         
         return jsonAlbum;
     }
