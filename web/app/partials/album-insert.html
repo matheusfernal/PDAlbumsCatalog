@@ -52,7 +52,7 @@
                 <input ng-model="newTrack" ng-keyup="addNewTrackEnter($event)" class="k-textbox"><button style="margin-left: 6px;" kendo-button ng-click="addNewTrack()">+</button>
             </p>
             <!--            <ol kendo-sortable k-change="trackReordered">-->
-            <ol>
+            <ol id="tracks-list">
                 <li ng-repeat="track in newAlbum.tracks">{{track.name}}<button kendo-button style="margin-left: 6px;" ng-click="removeTrack($index)">x</button></li>
             </ol>
 
