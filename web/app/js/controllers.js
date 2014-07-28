@@ -100,10 +100,10 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             $scope.newAlbum.tracks.splice(index, 1);
         };
         
-        $scope.collectionSelected = function(e) {
-            var collection = e.sender.value();
-            $scope.newAlbum.collection = collection;
-        };
+//        $scope.collectionSelected = function(e) {
+//            var collection = e.sender.value();
+//            $scope.newAlbum.collection = collection;
+//        };
         
         $scope.insertAlbum = function() {
             $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
@@ -137,6 +137,7 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
     function($scope, $routeParams, $http) {
         $http.get('../webresources/albums/album/' + $routeParams.albumId).success(function(data, status, headers, config) {
             $scope.newAlbum = data;
+            $scope.newAlbum._id = $routeParams.albumId;
             $scope.coverImageURL = $scope.newAlbum.coverPath;
         }).error(function(data, status, headers, config) {
             alert(';__; there was an error');
@@ -174,6 +175,23 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
 //            var collection = e.sender.value();
 //            $scope.newAlbum.collection = collection;
 //        };
+
+        $scope.insertAlbum = function() {
+            $http.post('../webresources/albums/update', $scope.newAlbum).success(function(data, status, headers, config){
+                alert('Your album was saved.');
+            }).error(function(data, status, headers, config){
+                alert(';__; there was an error');
+            });
+        };
+        
+        $scope.$watch('newAlbum.coverPath', function() {
+            if ($scope.newAlbum.coverPath !== null) {
+                $scope.coverImageURL = $scope.newAlbum.coverPath;
+            }
+            else {
+                $scope.coverImageURL = 'img/albumart.jpg';
+            }
+        });
     }
 ]);
 

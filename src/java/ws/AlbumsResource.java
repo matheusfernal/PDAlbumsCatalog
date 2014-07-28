@@ -19,6 +19,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
@@ -120,6 +121,24 @@ public class AlbumsResource
             JSONObject jsonAlbum = new JSONObject(content);
             Album album = AlbumConverter.convertJsonObjectToAlbum(jsonAlbum);
             getDao().insertAlbum(album);
+            return Response.ok().build();
+        } catch (JSONException ex)
+        {
+            Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.serverError().build();
+        }
+    }
+    
+    @POST
+    @Consumes("application/json")
+    @Path("/update")
+    public Response postAlbumUpdate(String content)
+    {
+        try
+        {
+            JSONObject jsonAlbum = new JSONObject(content);
+            Album album = AlbumConverter.convertJsonObjectToAlbum(jsonAlbum);
+            getDao().updateAlbum(album);
             return Response.ok().build();
         } catch (JSONException ex)
         {

@@ -93,6 +93,7 @@ public abstract class AlbumConverter
         album.setCoverPath(jsonAlbum.getString("coverPath"));
         album.setYear(jsonAlbum.getInt("year"));
         album.setCollection(jsonAlbum.getString("collection"));
+        album.setId(jsonAlbum.getString("_id"));
         
         JSONArray jsonTags = jsonAlbum.getJSONArray("tags");
         if (jsonTags.length() > 0)

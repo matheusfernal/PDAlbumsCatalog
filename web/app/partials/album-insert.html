@@ -45,7 +45,7 @@
             </p>
 <!--            <ol kendo-sortable k-change="trackReordered">-->
             <ol>
-                <li ng-repeat="track in newAlbum.tracks">{{track.name}}<button kendo-button style="margin-left: 6px;" ng-click="removeTrack(album._id)">x</button></li>
+                <li ng-repeat="track in newAlbum.tracks">{{track.name}}<button kendo-button style="margin-left: 6px;" ng-click="removeTrack($index)">x</button></li>
             </ol>
             
         </div>
