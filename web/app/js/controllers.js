@@ -41,7 +41,7 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
             $http.delete('../webresources/albums/delete/' + id).success(function(data, status, headers, config) {
                 $scope.albums.splice(albumIndex, 1);
             }).error(function(data, status, headers, config) {
-                alert(';__; there was an error');
+                alert(';__; There was an error.');
             });
         };
         
@@ -118,7 +118,7 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
                 $scope.newAlbum.tags = [];
                 $scope.newAlbum.tracks = [];
             }).error(function(data, status, headers, config){
-                alert(';__; there was an error');
+                alert(';__; There was an error.');
             });
         };
         
@@ -140,7 +140,7 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
             $scope.newAlbum._id = $routeParams.albumId;
             $scope.coverImageURL = $scope.newAlbum.coverPath;
         }).error(function(data, status, headers, config) {
-            alert(';__; there was an error');
+            alert(';__; There was an error.');
         });
         
         $scope.newTrack = '';
@@ -180,7 +180,7 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
             $http.post('../webresources/albums/update', $scope.newAlbum).success(function(data, status, headers, config){
                 alert('Your album was saved.');
             }).error(function(data, status, headers, config){
-                alert(';__; there was an error');
+                alert(';__; There was an error.');
             });
         };
         

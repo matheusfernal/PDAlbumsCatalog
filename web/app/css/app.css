@@ -83,3 +83,18 @@
     margin-bottom: 1em;
     margin-top: 1em;
 }
+
+.pdacLabel {
+    display: inline-block;
+    width: 6em;
+    text-align: right;
+}
+
+.pdacLabel.required {
+    content: "*";
+    font-weight: bold;
+}
+
+.albumField {
+    width: 20em;
+}

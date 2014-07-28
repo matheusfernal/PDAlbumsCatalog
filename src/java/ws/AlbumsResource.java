@@ -77,7 +77,7 @@ public class AlbumsResource
     @Path("/{collection}")
     public String getAlbumsOfCollection(@PathParam("collection") final String collectionStr)
     {
-        String albumsJsonStr = "";
+        String albumsJsonStr;
         if (collectionStr.equals("<No Collection>"))
         {
             albumsJsonStr = findAlbums(null);
