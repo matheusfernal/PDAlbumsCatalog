@@ -6,7 +6,9 @@
 
 package util;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,15 +33,20 @@ public class PDACProperties
     
     private PDACProperties() 
     { 
-        //FIXME
         this.configProperties = new Properties();
-//        try
-//        {
-//            this.configProperties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
-//        } catch (IOException ex)
-//        {
-//            Logger.getLogger(PDACProperties.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try
+        {
+            String fileName = "config.properties";
+            InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+            if (is == null)
+            {
+                is = new FileInputStream(fileName);
+            }
+            this.configProperties.load(is);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PDACProperties.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private Properties getConfigProperties()
@@ -49,30 +56,22 @@ public class PDACProperties
     
     public String getDBHost()
     {
-        //FIXME
-//        return getConfigProperties().getProperty("dbhost");
-        return "localhost";
+        return getConfigProperties().getProperty("dbhost");
     }
     
     public String getDBPort()
     {
-        //FIXME
-//        return getConfigProperties().getProperty("dbport");
-        return "27017";
+        return getConfigProperties().getProperty("dbport");
     }
     
     public String getMainDB()
     {
-        //FIXME
-//        return getConfigProperties().getProperty("maindb");
-        return "pdalbumscatalog";
+        return getConfigProperties().getProperty("maindb");
     }
     
     public String getTestDB()
     {
-        //FIXME
-//        return getConfigProperties().getProperty("testdb");
-        return "test";
+        return getConfigProperties().getProperty("testdb");
         
     }
             
