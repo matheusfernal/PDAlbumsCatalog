@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3">
             <image class="album-cover-big" ng-src="{{coverImageURL}}">
-        
+
         </div>
 
         <div class="col-md-5">
@@ -10,11 +10,11 @@
             <fieldset>
                 <p>
                     <span class="pdac-label required">Title:</span>
-                    <input ng-model="newAlbum.title" type="text" placeholder="Type a title..." class="k-textbox album-field" required validationMessage="Hey! Your album must have a name."/>
+                    <input ng-model="newAlbum.title" type="text" placeholder="Type a title..." class="k-textbox album-field" />
                 </p>
                 <p>
                     <span class="pdac-label required">Artist:</span> 
-                    <input kendo-auto-complete ng-model="newAlbum.artist" k-data-source="artistsDataSource" placeholder="Type an artist..."  required validationMessage="Hey! Your album must have an artist." class="album-field"/>
+                    <input kendo-auto-complete ng-model="newAlbum.artist" k-data-source="artistsDataSource" placeholder="Type an artist..." class="album-field" />
                 </p>
                 <p>
                     <span class="pdac-label">Genre:</span> 
@@ -28,19 +28,19 @@
                     <span class="pdac-label">Year:</span> 
                     <input kendo-masked-text-box k-mask="'0000'" ng-model="newAlbum.year" class="album-field" />
                 </p>
-                    <span class="pdac-label">Cover:</span> 
-                    <input placeholder="Paste the URL of an image on the web..." ng-model="newAlbum.coverPath" class="k-textbox album-field" >
+                <span class="pdac-label">Cover:</span> 
+                <input placeholder="Paste the URL of an image on the web..." ng-model="newAlbum.coverPath" class="k-textbox album-field" >
                 <p>
                 <p>
                     <span class="pdac-label">Collection:</span> 
                     <input kendo-auto-complete ng-model="newAlbum.collection" k-data-source="collectionAutocompleteDataSource" placeholder="Type a collection..." class="album-field"/>
-<!--                    Collection: <select kendo-combo-box
-                                    k-placeholder="'Select or type a collection'"
-                                    k-filter="contains"
-                                    k-auto-bind="false"
-                                    k-min-length="2"
-                                    k-data-source="collectionsDataSource"
-                                    k-change="collectionSelected"></select>-->
+                    <!--                    Collection: <select kendo-combo-box
+                                                        k-placeholder="'Select or type a collection'"
+                                                        k-filter="contains"
+                                                        k-auto-bind="false"
+                                                        k-min-length="2"
+                                                        k-data-source="collectionsDataSource"
+                                                        k-change="collectionSelected"></select>-->
                 </p>
             </fieldset>
 
@@ -51,16 +51,16 @@
                 <span class="pdac-label">New Track:</span> 
                 <input ng-model="newTrack" ng-keyup="addNewTrackEnter($event)" class="k-textbox"><button style="margin-left: 6px;" kendo-button ng-click="addNewTrack()">+</button>
             </p>
-<!--            <ol kendo-sortable k-change="trackReordered">-->
+            <!--            <ol kendo-sortable k-change="trackReordered">-->
             <ol>
                 <li ng-repeat="track in newAlbum.tracks">{{track.name}}<button kendo-button style="margin-left: 6px;" ng-click="removeTrack($index)">x</button></li>
             </ol>
-            
+
         </div>
     </div>
     <div class="row">
         <button kendo-button class="k-primary" ng-click="insertAlbum()">Save album</button> 
-        <a kendo-button href="#/albums" type="submit">Back</a>
+        <a kendo-button href="#/albums">Back</a>
     </div>
 </div>
 

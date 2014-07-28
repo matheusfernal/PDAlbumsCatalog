@@ -99,3 +99,7 @@
 .album-field {
     width: 20em;
 }
+
+.invalid-field {
+    border-color: red;
+}

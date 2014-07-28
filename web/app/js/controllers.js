@@ -106,20 +106,22 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
 //        };
         
         $scope.insertAlbum = function() {
-            $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
-                alert('Your album was saved.');
-                $scope.newAlbum.title = null;
-                $scope.newAlbum.artist = null;
-                $scope.newAlbum.genre = null;
-                $scope.newAlbum.label = null;
-                $scope.newAlbum.collection = null;
-                $scope.newAlbum.coverPath = null;
-                $scope.newAlbum.year = new Date().getFullYear();
-                $scope.newAlbum.tags = [];
-                $scope.newAlbum.tracks = [];
-            }).error(function(data, status, headers, config){
-                alert(';__; There was an error.');
-            });
+            if (pdAlbumsCatalogControllers.canInsertAlbum($scope.newAlbum)) {
+                $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
+                    alert('Your album was saved.');
+                    $scope.newAlbum.title = null;
+                    $scope.newAlbum.artist = null;
+                    $scope.newAlbum.genre = null;
+                    $scope.newAlbum.label = null;
+                    $scope.newAlbum.collection = null;
+                    $scope.newAlbum.coverPath = null;
+                    $scope.newAlbum.year = new Date().getFullYear();
+                    $scope.newAlbum.tags = [];
+                    $scope.newAlbum.tracks = [];
+                }).error(function(data, status, headers, config){
+                    alert(';__; There was an error.');
+                });
+            }
         };
         
         $scope.$watch('newAlbum.coverPath', function() {
@@ -177,11 +179,13 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
 //        };
 
         $scope.insertAlbum = function() {
-            $http.post('../webresources/albums/update', $scope.newAlbum).success(function(data, status, headers, config){
-                alert('Your album was saved.');
-            }).error(function(data, status, headers, config){
-                alert(';__; There was an error.');
-            });
+            if (pdAlbumsCatalogControllers.canInsertAlbum($scope.newAlbum)) {
+                $http.post('../webresources/albums/update', $scope.newAlbum).success(function(data, status, headers, config){
+                    alert('Your album was saved.');
+                }).error(function(data, status, headers, config){
+                    alert(';__; There was an error.');
+                });
+            }
         };
         
         $scope.$watch('newAlbum.coverPath', function() {
@@ -240,5 +244,21 @@ pdAlbumsCatalogControllers.labelsDataSource = {
         read: {
             url: '../webresources/labels'
         }
+    }
+};
+
+pdAlbumsCatalogControllers.canInsertAlbum = function(album) {
+    if (album.artist === null
+        || album.title === null
+        || album.artist === undefined
+        || album.title === undefined
+        || album.artist === ''
+        || album.title === '') {
+        
+        alert('Your album must have a name and an artist.');
+        return false;
+    }
+    else {
+        return true;
     }
 };
