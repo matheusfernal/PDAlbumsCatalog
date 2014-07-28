@@ -40,7 +40,7 @@ public class AlbumsDAO
         return db;
     }
     
-    public DBCollection getAlbums()
+    DBCollection getAlbums()
     {
         return albums;
     }
@@ -58,6 +58,11 @@ public class AlbumsDAO
         getAlbums().insert(dbAlbum);
         album.setId(dbAlbum.get("_id").toString());
     }
+    
+    public boolean removeAlbum(String albumId)
+    {
+        return getAlbums().remove(new BasicDBObject("_id", new ObjectId(albumId))).getN() > 0;
+    }        
     
     /**
      * 
@@ -150,5 +155,5 @@ public class AlbumsDAO
     public List<String> findAllLabels()
     {
         return getDistinctStringElement("label");
-    } 
+    }
 }

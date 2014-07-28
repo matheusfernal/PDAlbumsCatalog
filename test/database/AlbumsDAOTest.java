@@ -281,4 +281,50 @@ public class AlbumsDAOTest
         
         assertArrayEquals(expectedLabels, allLabels.toArray(new String[3]));
     }
+    
+    @Test
+    public void testRemoveAlbumReturnTrue()
+    {
+        Album album26 = new Album("album_26", "artist_26");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        
+        albumsDAO.insertAlbum(album26);
+        
+        assertTrue(albumsDAO.removeAlbum(album26.getId()));
+    }
+    
+    @Test
+    public void testRemoveAlbumReturnFalse()
+    {
+        Album album27 = new Album("album_27", "artist_27");
+        Album album30 = new Album("album_30", "artist_30");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        
+        albumsDAO.insertAlbum(album27);
+        albumsDAO.insertAlbum(album30);
+        
+        albumsDAO.removeAlbum(album27.getId());
+        
+        assertFalse(albumsDAO.removeAlbum(album27.getId()));
+    }
+    
+    @Test
+    public void testRemoveAlbum()
+    {
+        Album album28 = new Album("album_28", "artist_28");
+        Album album29 = new Album("album_29", "artist_29");
+        Album album30 = new Album("album_30", "artist_30");
+        
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        
+        albumsDAO.insertAlbum(album28);
+        albumsDAO.insertAlbum(album29);
+        albumsDAO.insertAlbum(album30);
+        
+       albumsDAO.removeAlbum(album28.getId());
+       
+        assertEquals(2, albumsDAO.getAlbums().count());
+    }
 }

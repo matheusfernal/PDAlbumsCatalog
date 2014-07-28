@@ -17,10 +17,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,17 +95,27 @@ public class AlbumsResource
     @PUT
     @Consumes("application/json")
     @Path("/insert")
-    public void putNewAlbum(String content)
+    public Response putNewAlbum(String content)
     {
         try 
         {
             JSONObject jsonAlbum = new JSONObject(content);
             Album album = AlbumConverter.convertJsonObjectToAlbum(jsonAlbum);
             getDao().insertAlbum(album);
+            return Response.ok().build();
         } catch (JSONException ex)
         {
             Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.serverError().build();
         }
+    }
+    
+    @DELETE
+    @Consumes("text/plain")
+    @Path("/delete/{id}")
+    public Response deleteAlbum(@PathParam("id") final String id)
+    {
+        return getDao().removeAlbum(id) ? Response.ok().build() : Response.status(Response.Status.BAD_REQUEST).build();
     }
     
     private String findAlbums(String collection)

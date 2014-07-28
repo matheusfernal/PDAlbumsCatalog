@@ -23,7 +23,7 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
         $scope.collectionSelected = function(e)
         {
             var collection = e.sender.value();
-            $http.get('../webresources/albums/' + collection).success(function(data) {
+            $http.get('../webresources/albums/' + collection).success(function(data, status, headers, config) {
                 $scope.albums = data;
             });
         };
@@ -38,7 +38,11 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
                 }
             }
             
-            alert($scope.albums[albumIndex].title);
+            $http.delete('../webresources/albums/delete/' + id).success(function(data, status, headers, config) {
+                $scope.albums.splice(albumIndex, 1);
+            }).error(function(data, status, headers, config) {
+                alert(';__; there was an error');
+            });
         };
         
 //        $scope.search = function (row) {
@@ -133,9 +137,18 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
         
         $scope.insertAlbum = function() {
             $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
-                alert('sucesso');
+                alert('Your album was saved.');
+                $scope.newAlbum.title = null;
+                $scope.newAlbum.artist = null;
+                $scope.newAlbum.genre = null;
+                $scope.newAlbum.label = null;
+                $scope.newAlbum.collection = null;
+                $scope.newAlbum.coverPath = null;
+                $scope.newAlbum.year = new Date().getFullYear();
+                $scope.newAlbum.tags = [];
+                $scope.newAlbum.tracks = [];
             }).error(function(data, status, headers, config){
-                alert('erro');
+                alert(';__; there was an error');
             });
         };
         
