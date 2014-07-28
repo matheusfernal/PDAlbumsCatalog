@@ -103,3 +103,19 @@
 .invalid-field {
     border-color: red;
 }
+
+.header-bar {
+    width: 100%;
+    height: 50px;
+    background-image: none, -webkit-linear-gradient(top, #1b85c8 0, #469cd3 100%);
+    background-image: none, -moz-linear-gradient(top, #1b85c8 0, #469cd3 100%);
+    background-image: none, -o-linear-gradient(top, #1b85c8 0, #469cd3 100%);
+    background-image: none, linear-gradient(to bottom, #1b85c8 0, #469cd3 100%);
+    background-color: #004eb6;
+    margin-bottom: 15px;
+}
+
+.pd-albums-catalog-logo {
+    margin-top: 8px;
+    margin-left: 30px;
+}

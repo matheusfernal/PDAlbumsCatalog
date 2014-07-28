@@ -10,6 +10,8 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
             $scope.albums = data;
         });
         
+        $scope.orderProp = 'artist';
+        
         $scope.collectionsDataSource = {
             type: 'json',
             serverFiltering: true,
@@ -140,7 +142,7 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
         $http.get('../webresources/albums/album/' + $routeParams.albumId).success(function(data, status, headers, config) {
             $scope.newAlbum = data;
             $scope.newAlbum._id = $routeParams.albumId;
-            $scope.coverImageURL = $scope.newAlbum.coverPath;
+            $scope.coverImageURL = $scope.newTrack.hasOwnProperty('coverPath') ? $scope.newAlbum.coverPath : 'img/albumart.jpg';
         }).error(function(data, status, headers, config) {
             alert(';__; There was an error.');
         });
@@ -255,7 +257,7 @@ pdAlbumsCatalogControllers.canInsertAlbum = function(album) {
         || album.artist === ''
         || album.title === '') {
         
-        alert('Your album must have a name and an artist.');
+        alert('Your album must have a title and an artist.');
         return false;
     }
     else {

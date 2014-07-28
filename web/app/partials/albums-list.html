@@ -5,15 +5,28 @@
             <div id="search">
                 <input name="q" type="text" size="40" placeholder="Search..." ng-model="query" />
             </div>
+            
             <div class="width-100-percent">
-            <span class="pdac-label">Collection:</span>
-            <select kendo-combo-box
-                    k-placeholder="'Select a collection'"
-                    k-filter="contains"
-                    k-auto-bind="false"
-                    k-min-length="2"
-                    k-data-source="collectionsDataSource"
-                    k-change="collectionSelected"></select>
+                <span class="pdac-label">Sort by:</span>
+                <select ng-model="orderProp">
+                    <option value="title">Title A-Z</option>
+                    <option value="-title">Title Z-A</option>
+                    <option value="artist">Artist A-Z</option>
+                    <option value="-artist">Artist Z-A</option>
+                    <option value="-year">Newest</option>
+                    <option value="year">Oldest</option>
+                </select>
+            </div>
+            
+            <div class="width-100-percent">
+                <span class="pdac-label">Collection:</span>
+                <select kendo-combo-box
+                        k-placeholder="'Select a collection'"
+                        k-filter="contains"
+                        k-auto-bind="false"
+                        k-min-length="2"
+                        k-data-source="collectionsDataSource"
+                        k-change="collectionSelected"></select>
             </div>
             <div>
                 <a kendo-button class="k-primary" href="#/albums/insert">Insert an album</a>
@@ -23,7 +36,7 @@
             <!--Body content-->
 
             <ul class="albums">
-                <li ng-repeat="album in albums | filter:query"
+                <li ng-repeat="album in albums | filter:query | orderBy:orderProp"
                     class="thumbnail">
                     <a href="#/albums/album/{{album._id}}" class="thumb"><img ng-src="{{album | albumCoverSrc}}"></a>
                     <a href="#/albums/album/{{album._id}}">{{album.title}}</a>
