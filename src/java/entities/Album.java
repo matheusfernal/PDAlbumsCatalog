@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entities;
 
 import java.util.List;
@@ -13,8 +12,9 @@ import java.util.Objects;
  *
  * @author matheusfernal
  */
-public class Album {
-    
+public class Album
+{
+
     private String id;
     private String title;
     private String genre;
@@ -25,43 +25,51 @@ public class Album {
     private List<Track> tracks;
     private List<String> tags;
     private String collection;
-    
+
     public Album(String title, String artist)
     {
         //TODO: Handle title or artist null
         this.title = title;
         this.artist = artist;
     }
-    
-    public String getTitle() {
+
+    public String getTitle()
+    {
         return title;
     }
 
-    public String getGenre() {
+    public String getGenre()
+    {
         return genre;
     }
 
-    public String getArtist() {
+    public String getArtist()
+    {
         return artist;
     }
 
-    public String getLabel() {
+    public String getLabel()
+    {
         return label;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(String genre)
+    {
         this.genre = genre;
     }
 
-    public void setArtist(String artist) {
+    public void setArtist(String artist)
+    {
         this.artist = artist;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(String label)
+    {
         this.label = label;
     }
 
@@ -104,8 +112,8 @@ public class Album {
     {
         this.coverPath = coverPath;
     }
-    
-        public Integer getYear()
+
+    public Integer getYear()
     {
         return year;
     }

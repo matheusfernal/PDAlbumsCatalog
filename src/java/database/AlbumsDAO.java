@@ -6,6 +6,7 @@
 
 package database;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -47,13 +48,7 @@ public class AlbumsDAO
 
     public void insertAlbum(Album album) 
     {
-        BasicDBObject dbAlbum = new BasicDBObject("title", album.getTitle())
-                .append("artist", album.getArtist())
-                .append("year", album.getYear())
-                .append("genre", album.getGenre())
-                .append("label", album.getLabel())
-                .append("coverPath", album.getCoverPath())
-                .append("collection", album.getCollection());
+        DBObject dbAlbum = AlbumConverter.convertAlbumToDBObject(album);
         
         getAlbums().insert(dbAlbum);
         album.setId(dbAlbum.get("_id").toString());
@@ -100,7 +95,7 @@ public class AlbumsDAO
     {
         DBObject dbAlbum = getAlbums().findOne(new BasicDBObject("_id", new ObjectId(id)));
         
-        return AlbumConverter.convertDBObjectToAlbum(dbAlbum);
+        return dbAlbum != null ? AlbumConverter.convertDBObjectToAlbum(dbAlbum) : null;
     }
     
     public void updateAlbum(Album album)

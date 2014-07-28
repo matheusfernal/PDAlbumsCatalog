@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ws;
 
 import database.AlbumsDAO;
@@ -22,6 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,13 +41,13 @@ public class AlbumsResource
 
     //TODO: Maybe I'll introduce another layer to avoid using the DAO in the webservice
     private AlbumsDAO dao;
-    
+
     /**
      * Creates a new instance of AlbumsResource
      */
     public AlbumsResource()
     {
-        
+
     }
 
     private AlbumsDAO getDao()
@@ -58,9 +58,10 @@ public class AlbumsResource
         }
         return dao;
     }
-    
+
     /**
      * Retrieves representation of an instance of ws.AlbumsResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -79,16 +80,33 @@ public class AlbumsResource
         if (collectionStr.equals("<No Collection>"))
         {
             albumsJsonStr = findAlbums(null);
-        }
-        else
+        } else
         {
             albumsJsonStr = findAlbums(collectionStr);
         }
         return albumsJsonStr;
     }
-    
+
+    @GET
+    @Produces("application/json")
+    @Path("/album/{albumId}")
+    public Response getAlbumById(@PathParam("albumId") final String albumId)
+    {
+        try
+        {
+            Album album = getDao().findAlbumById(albumId);
+            
+            return album != null ? Response.ok(AlbumConverter.convertAlbumToJsonObject(album).toString(), MediaType.APPLICATION_JSON).build() : Response.status(Response.Status.NOT_FOUND).build();
+        } catch (JSONException ex)
+        {
+            Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.serverError().build();
+        }
+    }
+
     /**
      * PUT method for updating or creating an instance of AlbumsResource
+     *
      * @param content representation for the resource
      * @return an HTTP response with content of the updated or created resource.
      */
@@ -97,7 +115,7 @@ public class AlbumsResource
     @Path("/insert")
     public Response putNewAlbum(String content)
     {
-        try 
+        try
         {
             JSONObject jsonAlbum = new JSONObject(content);
             Album album = AlbumConverter.convertJsonObjectToAlbum(jsonAlbum);
@@ -109,7 +127,7 @@ public class AlbumsResource
             return Response.serverError().build();
         }
     }
-    
+
     @DELETE
     @Consumes("text/plain")
     @Path("/delete/{id}")
@@ -117,13 +135,13 @@ public class AlbumsResource
     {
         return getDao().removeAlbum(id) ? Response.ok().build() : Response.status(Response.Status.BAD_REQUEST).build();
     }
-    
+
     private String findAlbums(String collection)
     {
         List<Album> albums = getDao().findAllAlbunsOfCollection(collection);
-        
+
         JSONArray jsonAlbums = createAlbumsJson(albums);
-        
+
         return jsonAlbums.toString();
     }
 
@@ -142,13 +160,13 @@ public class AlbumsResource
         }
         return jsonAlbums;
     }
-    
+
     private String findAllAlbums()
     {
         List<Album> albums = getDao().findAllAlbums();
-        
+
         JSONArray jsonAlbums = createAlbumsJson(albums);
-        
+
         return jsonAlbums.toString();
     }
 }

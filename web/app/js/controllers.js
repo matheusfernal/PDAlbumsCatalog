@@ -169,3 +169,13 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
         };
     }
 ]);
+
+pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$routeParams', '$http',
+    function($scope, $routeParams, $http) {
+        $http.get('../webresources/albums/album/' + $routeParams.albumId).success(function(data, status, headers, config) {
+            $scope.newAlbum = data;
+        }).error(function(data, status, headers, config) {
+            alert(';__; there was an error');
+        });
+    }
+]);

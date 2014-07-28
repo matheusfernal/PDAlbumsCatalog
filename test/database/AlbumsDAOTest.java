@@ -9,6 +9,8 @@ package database;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import entities.Album;
+import entities.Track;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
 import static org.junit.Assert.*;
@@ -56,12 +58,36 @@ public class AlbumsDAOTest
     {
         AlbumsDAO albumsDAO = new AlbumsDAO(db);
         
-        Album album = new Album("album_1", "artist_1");
+        Album album = new Album("album_31", "artist_31");
         albumsDAO.insertAlbum(album);
         
         long albunsQty = albumsDAO.getAlbums().count();
         
         assertEquals(1, albunsQty);
+    }
+    
+    @Test
+    public void testInsertAlbumWithTracks()
+    {
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        Album album = new Album("album_32", "artist_32");
+        album.setTracks(Arrays.asList(new Track(32, "track32"), new Track(33, "track_33")));
+        albumsDAO.insertAlbum(album);
+        
+        Album retrievedAlbum = albumsDAO.findAlbumById(album.getId());
+        assertEquals(2, retrievedAlbum.getTracks().size());
+    }
+    
+    @Test
+    public void testInsertAlbumWithTags()
+    {
+        AlbumsDAO albumsDAO = new AlbumsDAO(db);
+        Album album = new Album("album_33", "artist_33");
+        album.setTags(Arrays.asList("tag_33", "tag_34"));
+        albumsDAO.insertAlbum(album);
+        
+        Album retrievedAlbum = albumsDAO.findAlbumById(album.getId());
+        assertEquals(2, retrievedAlbum.getTags().size());
     }
     
     @Test
