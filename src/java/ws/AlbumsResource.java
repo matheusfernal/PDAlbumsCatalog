@@ -120,8 +120,14 @@ public class AlbumsResource
         {
             JSONObject jsonAlbum = new JSONObject(content);
             Album album = AlbumConverter.convertJsonObjectToAlbum(jsonAlbum);
-            getDao().insertAlbum(album);
-            return Response.ok().build();
+            if (album.getArtist() != null && album.getTitle() != null)
+            {
+                getDao().insertAlbum(album);
+                return Response.ok().build();
+            } else 
+            {
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
         } catch (JSONException ex)
         {
             Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);

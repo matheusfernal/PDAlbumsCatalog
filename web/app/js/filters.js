@@ -12,7 +12,7 @@ pdAlbumsCatalogFilters.filter('interpolate', ['version', function(version) {
   
 pdAlbumsCatalogFilters.filter('albumCoverSrc', function(){
    return function(album) {
-       return album.hasOwnProperty('coverPath') ? album.coverPath : 'img/albumart.jpg';
+       return album.hasOwnProperty('coverPath') && album.coverPath !== null ? album.coverPath : 'img/albumart.jpg';
    } ;
 });
 

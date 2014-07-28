@@ -87,12 +87,15 @@ public abstract class AlbumConverter
     
     public static Album convertJsonObjectToAlbum(JSONObject jsonAlbum) throws JSONException
     {
-        Album album = new Album(jsonAlbum.getString("title"), jsonAlbum.getString("artist"));
-        album.setGenre(jsonAlbum.getString("genre"));
-        album.setLabel(jsonAlbum.getString("label"));
-        album.setCoverPath(jsonAlbum.getString("coverPath"));
-        album.setYear(jsonAlbum.getInt("year"));
-        album.setCollection(jsonAlbum.getString("collection"));
+        String albumTitle = !jsonAlbum.isNull("title") ? jsonAlbum.getString("title") : null;
+        String albumArtist = !jsonAlbum.isNull("artist") ? jsonAlbum.getString("artist") : null;
+        Album album = new Album(albumTitle, albumArtist);
+
+        album.setGenre(!jsonAlbum.isNull("genre") ? jsonAlbum.getString("genre") : null);
+        album.setLabel(!jsonAlbum.isNull("label") ? jsonAlbum.getString("label") : null);
+        album.setCoverPath(!jsonAlbum.isNull("coverPath") ? jsonAlbum.getString("coverPath") : null);
+        album.setYear(!jsonAlbum.isNull("year") ? jsonAlbum.getInt("year") : null);
+        album.setCollection(!jsonAlbum.isNull("collection") ? jsonAlbum.getString("collection") : null);
         if (jsonAlbum.has("_id"))
         {
             album.setId(jsonAlbum.getString("_id"));

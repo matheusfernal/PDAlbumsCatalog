@@ -79,22 +79,23 @@
 }
 
 .width-100-percent {
-    width: 100%;
+    width: 25em;
     margin-bottom: 1em;
     margin-top: 1em;
 }
 
-.pdacLabel {
+.pdac-label {
     display: inline-block;
     width: 6em;
     text-align: right;
 }
 
-.pdacLabel.required {
+.pdac-label.required:before {
     content: "*";
     font-weight: bold;
+    color: red;
 }
 
-.albumField {
+.album-field {
     width: 20em;
 }

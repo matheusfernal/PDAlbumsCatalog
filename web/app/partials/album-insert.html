@@ -9,31 +9,31 @@
 
             <fieldset>
                 <p>
-                    <span class="pdacLabel required">Title:</span>
-                    <input ng-model="newAlbum.title" type="text" placeholder="Type a title..." class="k-textbox albumField" required validationMessage="Hey! Your album must have a name."/>
+                    <span class="pdac-label required">Title:</span>
+                    <input ng-model="newAlbum.title" type="text" placeholder="Type a title..." class="k-textbox album-field" required validationMessage="Hey! Your album must have a name."/>
                 </p>
                 <p>
-                    <span class="pdacLabel required">Artist:</span> 
-                    <input kendo-auto-complete ng-model="newAlbum.artist" k-data-source="artistsDataSource" placeholder="Type an artist..."  required validationMessage="Hey! Your album must have an artist." class="albumField"/>
+                    <span class="pdac-label required">Artist:</span> 
+                    <input kendo-auto-complete ng-model="newAlbum.artist" k-data-source="artistsDataSource" placeholder="Type an artist..."  required validationMessage="Hey! Your album must have an artist." class="album-field"/>
                 </p>
                 <p>
-                    <span class="pdacLabel">Genre:</span> 
-                    <input kendo-auto-complete ng-model="newAlbum.genre" k-data-source="genresDataSource" placeholder="Type a genre..." class="albumField" />
+                    <span class="pdac-label">Genre:</span> 
+                    <input kendo-auto-complete ng-model="newAlbum.genre" k-data-source="genresDataSource" placeholder="Type a genre..." class="album-field" />
                 </p>
                 <p>
-                    <span class="pdacLabel">Label:</span> 
-                    <input kendo-auto-complete ng-model="newAlbum.label" k-data-source="labelsDataSource" placeholder="Type a label..." class="albumField" />
+                    <span class="pdac-label">Label:</span> 
+                    <input kendo-auto-complete ng-model="newAlbum.label" k-data-source="labelsDataSource" placeholder="Type a label..." class="album-field" />
                 </p>
                 <p>
-                    <span class="pdacLabel">Year:</span> 
-                    <input kendo-masked-text-box k-mask="'0000'" ng-model="newAlbum.year" class="albumField" />
+                    <span class="pdac-label">Year:</span> 
+                    <input kendo-masked-text-box k-mask="'0000'" ng-model="newAlbum.year" class="album-field" />
                 </p>
-                    <span class="pdacLabel">Cover:</span> 
-                    <input placeholder="Paste the URL of an image on the web..." ng-model="newAlbum.coverPath" class="k-textbox albumField" >
+                    <span class="pdac-label">Cover:</span> 
+                    <input placeholder="Paste the URL of an image on the web..." ng-model="newAlbum.coverPath" class="k-textbox album-field" >
                 <p>
                 <p>
-                    <span class="pdacLabel">Collection:</span> 
-                    <input kendo-auto-complete ng-model="newAlbum.collection" k-data-source="collectionAutocompleteDataSource" placeholder="Type a collection..." class="albumField"/>
+                    <span class="pdac-label">Collection:</span> 
+                    <input kendo-auto-complete ng-model="newAlbum.collection" k-data-source="collectionAutocompleteDataSource" placeholder="Type a collection..." class="album-field"/>
 <!--                    Collection: <select kendo-combo-box
                                     k-placeholder="'Select or type a collection'"
                                     k-filter="contains"
@@ -48,7 +48,7 @@
         <div class="col-md-4">
             <h5>Tracks</h5><!--<span>(drag to reorder)</span>-->
             <p>
-                <span class="pdacLabel">New Track:</span> 
+                <span class="pdac-label">New Track:</span> 
                 <input ng-model="newTrack" ng-keyup="addNewTrackEnter($event)" class="k-textbox"><button style="margin-left: 6px;" kendo-button ng-click="addNewTrack()">+</button>
             </p>
 <!--            <ol kendo-sortable k-change="trackReordered">-->
