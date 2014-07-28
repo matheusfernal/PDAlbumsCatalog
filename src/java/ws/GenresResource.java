@@ -13,6 +13,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.json.JSONArray;
 import util.PDACProperties;
@@ -53,11 +55,11 @@ public class GenresResource
      */
     @GET
     @Produces("application/json")
-    public String getGenres()
+    public Response getGenres()
     {
         List<String> genres = getDao().findAllGenres();
         
         JSONArray jsonGenres = new JSONArray(genres);
-        return jsonGenres.toString();
+        return Response.ok(jsonGenres.toString(), MediaType.APPLICATION_JSON).build();
     }
 }

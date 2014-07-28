@@ -13,6 +13,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.json.JSONArray;
 import util.PDACProperties;
@@ -53,11 +55,11 @@ public class LabelsResource
      */
     @GET
     @Produces("application/json")
-    public String getLabels()
+    public Response getLabels()
     {
         List<String> labels = getDao().findAllLabels();
         
         JSONArray jsonLabels = new JSONArray(labels);
-        return jsonLabels.toString();
+        return  Response.ok(jsonLabels.toString(), MediaType.APPLICATION_JSON).build();
     }
 }

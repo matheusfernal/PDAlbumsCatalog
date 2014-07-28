@@ -9,14 +9,13 @@ package ws;
 import database.AlbumsDAO;
 import database.PDACMongoClient;
 import java.util.List;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import org.json.JSONArray;
 import util.PDACProperties;
 
@@ -56,11 +55,11 @@ public class ArtistsResource
      */
     @GET
     @Produces("application/json")
-    public String getArtists()
+    public Response getArtists()
     {
         List<String> artists = getDao().findAllArtists();
         
         JSONArray jsonArtists = new JSONArray(artists);
-        return jsonArtists.toString();
+        return Response.ok(jsonArtists.toString(), MediaType.APPLICATION_JSON).build();
     }
 }
