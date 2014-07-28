@@ -67,25 +67,40 @@ public class AlbumsResource
      */
     @GET
     @Produces("application/json")
-    public String getAlbums()
+    public Response getAlbums()
     {
-        return findAllAlbums();
+        try
+        {
+            String albums = findAllAlbums();
+            return Response.ok(albums, MediaType.APPLICATION_JSON).build();
+        } catch (JSONException ex)
+        {
+            Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.serverError().build();
+        }
+        
     }
 
     @GET
     @Produces("application/json")
     @Path("/{collection}")
-    public String getAlbumsOfCollection(@PathParam("collection") final String collectionStr)
+    public Response getAlbumsOfCollection(@PathParam("collection") final String collectionStr)
     {
-        String albumsJsonStr;
-        if (collectionStr.equals("<No Collection>"))
+        try {
+            String albumsJsonStr;
+            if (collectionStr.equals("<No Collection>"))
+            {
+                albumsJsonStr = findAlbums(null);
+            } else
+            {
+                albumsJsonStr = findAlbums(collectionStr);
+            }
+            return Response.ok(albumsJsonStr, MediaType.APPLICATION_JSON).build();
+        } catch (JSONException ex)
         {
-            albumsJsonStr = findAlbums(null);
-        } else
-        {
-            albumsJsonStr = findAlbums(collectionStr);
+            Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.serverError().build();
         }
-        return albumsJsonStr;
     }
 
     @GET
@@ -161,7 +176,7 @@ public class AlbumsResource
         return getDao().removeAlbum(id) ? Response.ok().build() : Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    private String findAlbums(String collection)
+    private String findAlbums(String collection) throws JSONException
     {
         List<Album> albums = getDao().findAllAlbunsOfCollection(collection);
 
@@ -170,23 +185,17 @@ public class AlbumsResource
         return jsonAlbums.toString();
     }
 
-    private JSONArray createAlbumsJson(List<Album> albums)
+    private JSONArray createAlbumsJson(List<Album> albums) throws JSONException
     {
         JSONArray jsonAlbums = new JSONArray();
-        try
+        for (Album album : albums)
         {
-            for (Album album : albums)
-            {
-                jsonAlbums.put(AlbumConverter.convertAlbumToJsonObject(album));
-            }
-        } catch (JSONException ex)
-        {
-            Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);
+            jsonAlbums.put(AlbumConverter.convertAlbumToJsonObject(album));
         }
         return jsonAlbums;
     }
 
-    private String findAllAlbums()
+    private String findAllAlbums() throws JSONException
     {
         List<Album> albums = getDao().findAllAlbums();
 

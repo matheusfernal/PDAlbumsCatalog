@@ -17,7 +17,7 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
             serverFiltering: true,
             transport: {
                 read: {
-                    url: '../webresources/collections'
+                    url: '../webresources/collections/all'
                 }
             }
         };
@@ -25,9 +25,17 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
         $scope.collectionSelected = function(e)
         {
             var collection = e.sender.value();
-            $http.get('../webresources/albums/' + collection).success(function(data, status, headers, config) {
-                $scope.albums = data;
-            });
+            if (collection === '<All Collections>') {
+                $http.get('../webresources/albums/').success(function(data, status, headers, config) {
+                    $scope.albums = data;
+                });
+            }
+            else {
+                $http.get('../webresources/albums/' + collection).success(function(data, status, headers, config) {
+                    $scope.albums = data;
+                });
+            }
+                
         };
         
         $scope.removeAlbum = function(id)
@@ -109,6 +117,9 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
         
         $scope.insertAlbum = function() {
             if (pdAlbumsCatalogControllers.canInsertAlbum($scope.newAlbum)) {
+                if ($scope.newAlbum.collection === "<No Collection>") {
+                    scope.newAlbum.collection = null;
+                }
                 $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
                     alert('Your album was saved.');
                     $scope.newAlbum.title = null;

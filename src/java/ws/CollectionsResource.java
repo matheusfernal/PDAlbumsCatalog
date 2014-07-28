@@ -17,6 +17,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,11 +61,23 @@ public class CollectionsResource
      */
     @GET
     @Produces("application/json")
-    public String getCollections()
+    public Response getCollections()
     {       
         List<String> collections = getDao().findAllCollections();
         
         JSONArray jsonCollections = new JSONArray(collections);
-        return jsonCollections.toString();
+        return Response.ok(jsonCollections.toString(), MediaType.APPLICATION_JSON).build();
+    }
+    
+    @GET
+    @Produces("application/json")
+    @Path("/all")
+    public Response getCollectionsWithAll()
+    {  
+        List<String> collections = getDao().findAllCollections();
+        collections.add(0, "<All Collections>");
+        
+        JSONArray jsonCollections = new JSONArray(collections);
+        return Response.ok(jsonCollections.toString(), MediaType.APPLICATION_JSON).build();
     }
 }

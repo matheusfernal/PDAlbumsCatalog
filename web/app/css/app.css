@@ -78,7 +78,7 @@
     padding-bottom: 1em;
 }
 
-.width-100-percent {
+.filter-width {
     width: 25em;
     margin-bottom: 1em;
     margin-top: 1em;
@@ -133,4 +133,11 @@
 #tracks-list button {
     float: right;
 }
-             
+
+.button-bar {
+    margin: 17px;
+}
+
+.button-bar a {
+    margin-right: 5px;
+}
