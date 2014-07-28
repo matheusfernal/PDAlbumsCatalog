@@ -1,11 +1,11 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <!--Sidebar content-->
             <div id="search">
                 <input name="q" type="text" size="40" placeholder="Search..." ng-model="query" />
             </div>
-            <div>
+            <div class="width-100-percent">
             Collection:
             <select kendo-combo-box
                     k-placeholder="'Select a collection'"
@@ -19,7 +19,7 @@
                 <a kendo-button class="k-primary" href="#/albums/insert">Insert an album</a>
             </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-9">
             <!--Body content-->
 
             <ul class="albums">

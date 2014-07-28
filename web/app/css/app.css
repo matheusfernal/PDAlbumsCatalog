@@ -39,6 +39,7 @@
 
 .albums {
   list-style: none;
+  padding-left: 10px;
 }
 
 .albums li {
@@ -52,11 +53,10 @@
 }
 
 #search input[type="text"] {
-    background: url(../img/search-white.png) no-repeat 10px 6px #fcfcfc;
+    background: url(../img/search-white.png) no-repeat 10px 6px white;
     border: 1px solid #d1d1d1;
     font: 12px Arial,Helvetica,Sans-serif;
-    
-    width: 180px;
+    width: 100%;
     padding: 6px 15px 6px 35px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -76,4 +76,10 @@
     float: right;
     margin: -3em 1em 1.5em 0;
     padding-bottom: 1em;
+}
+
+.width-100-percent {
+    width: 100%;
+    margin-bottom: 1em;
+    margin-top: 1em;
 }
