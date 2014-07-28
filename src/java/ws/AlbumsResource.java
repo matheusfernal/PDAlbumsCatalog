@@ -98,7 +98,8 @@ public class AlbumsResource
         try 
         {
             JSONObject jsonAlbum = new JSONObject(content);
-            System.out.println("content");
+            Album album = AlbumConverter.convertJsonObjectToAlbum(jsonAlbum);
+            getDao().insertAlbum(album);
         } catch (JSONException ex)
         {
             Logger.getLogger(AlbumsResource.class.getName()).log(Level.SEVERE, null, ex);

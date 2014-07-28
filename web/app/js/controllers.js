@@ -27,18 +27,41 @@ pdAlbumsCatalogControllers.controller('AlbumsListController', ['$scope', '$http'
                 $scope.albums = data;
             });
         };
+        
+        $scope.removeAlbum = function(id)
+        {
+            var albumIndex = -1;
+            for (var i = 0; i < $scope.albums.length; i++) {
+                if ($scope.albums[i]._id === id) {
+                    albumIndex = i;
+                    break;
+                }
+            }
+            
+            alert($scope.albums[albumIndex].title);
+        };
+        
+//        $scope.search = function (row) {
+//            return !!((row.title.indexOf($scope.query || '') !== -1 
+//                    || row.artist.indexOf($scope.query || '') !== -1 
+//                    || row.genre.indexOf($scope.query || '') !== -1 
+//                    || row.label.indexOf($scope.query || '') !== -1 
+//                    || row.tracks.indexOf($scope.query || '') !== -1 
+//                    || row.tags.indexOf($scope.query || '') !== -1 
+//                    || row.year.indexOf($scope.query || '') !== -1));
+//        };
     }
 ]);
 
 pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http',
     function($scope, $http) {
         $scope.newAlbum = {
-            title: '',
-            artist: '',
-            genre: '',
-            label: '',
-            collection: '',
-            coverPath: '',
+            title: null,
+            artist: null,
+            genre: null,
+            label: null,
+            collection: null,
+            coverPath: null,
             year: new Date().getFullYear(),
             tags: [],
             tracks: []
@@ -100,7 +123,7 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
         };
         
         $scope.$watch('newAlbum.coverPath', function() {
-            if ($scope.newAlbum.coverPath !== '') {
+            if ($scope.newAlbum.coverPath !== null) {
                 $scope.coverImageURL = $scope.newAlbum.coverPath;
             }
             else {
@@ -114,6 +137,22 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             }).error(function(data, status, headers, config){
                 alert('erro');
             });
+        };
+        
+        $scope.collectionsDataSource = {
+            type: 'json',
+            serverFiltering: true,
+            transport: {
+                read: {
+                    url: '../webresources/collections'
+                }
+            }
+        };
+        
+        $scope.collectionSelected = function(e)
+        {
+            var collection = e.sender.value();
+            $scope.newAlbum.collection = collection;
         };
     }
 ]);

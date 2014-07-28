@@ -25,7 +25,14 @@
                 </p>
                     Cover: <input placeholder="Paste the URL of an image on the web..." ng-model="newAlbum.coverPath">
                 <p>
-                    
+                <p>
+                    Collection: <select kendo-combo-box
+                                    k-placeholder="'Select or type a collection'"
+                                    k-filter="contains"
+                                    k-auto-bind="false"
+                                    k-min-length="2"
+                                    k-data-source="collectionsDataSource"
+                                    k-change="collectionSelected"></select>
                 </p>
             </fieldset>
 
@@ -37,7 +44,7 @@
             </p>
 <!--            <ol kendo-sortable k-change="trackReordered">-->
             <ol>
-                <li ng-repeat="track in newAlbum.tracks">{{track.name}}<button kendo-button style="margin-left: 6px;" ng-click="removeTrack($index)">x</button></li>
+                <li ng-repeat="track in newAlbum.tracks">{{track.name}}<button kendo-button style="margin-left: 6px;" ng-click="removeTrack(album._id)">x</button></li>
             </ol>
             
         </div>

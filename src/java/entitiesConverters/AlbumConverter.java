@@ -60,6 +60,7 @@ public abstract class AlbumConverter
     public static JSONObject convertAlbumToJsonObject(Album album) throws JSONException
     {
         JSONObject jsonAlbum = new JSONObject();
+        jsonAlbum.put("_id", album.getId());
         jsonAlbum.put("title", album.getTitle());
         jsonAlbum.put("artist", album.getArtist());
         jsonAlbum.put("genre", album.getGenre());

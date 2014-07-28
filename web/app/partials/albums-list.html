@@ -28,6 +28,10 @@
                     <a href="#" class="thumb"><img ng-src="{{album | albumCoverSrc}}"></a>
                     <a href="#">{{album.title}}</a>
                     <p>{{album.artist}}</p>
+                    <div class="trash-button">
+                        <input type="image" src="img/trash-icon-small.png" alt="Remove" ng-click="removeAlbum(album._id)">
+                    </div>    
+                        
                 </li>
             </ul>
         </div>
