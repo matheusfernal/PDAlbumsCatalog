@@ -26,13 +26,14 @@
                     Cover: <input placeholder="Paste the URL of an image on the web..." ng-model="newAlbum.coverPath">
                 <p>
                 <p>
-                    Collection: <select kendo-combo-box
+                    Collection: <input kendo-auto-complete ng-model="newAlbum.collection" k-data-source="collectionAutocompleteDataSource" placeholder="Type a collection..." />
+<!--                    Collection: <select kendo-combo-box
                                     k-placeholder="'Select or type a collection'"
                                     k-filter="contains"
                                     k-auto-bind="false"
                                     k-min-length="2"
                                     k-data-source="collectionsDataSource"
-                                    k-change="collectionSelected"></select>
+                                    k-change="collectionSelected"></select>-->
                 </p>
             </fieldset>
 

@@ -71,38 +71,13 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             tracks: []
         };
         
-        $scope.artistsDataSource = {
-            type: 'json',
-            serverFiltering: true,
-            transport: {
-                read: {
-                    url: '../webresources/artists'
-                }
-            }
-        };
-        
-        $scope.genresDataSource = {
-            type: 'json',
-            serverFiltering: true,
-            transport: {
-                read: {
-                    url: '../webresources/genres'
-                }
-            }
-        };
-        
-        $scope.labelsDataSource = {
-            type: 'json',
-            serverFiltering: true,
-            transport: {
-                read: {
-                    url: '../webresources/labels'
-                }
-            }
-        };
-        
         $scope.coverImageURL = 'img/albumart.jpg';
         $scope.newTrack = '';
+        
+        $scope.artistsDataSource = pdAlbumsCatalogControllers.artistsDataSource;
+        $scope.genresDataSource = pdAlbumsCatalogControllers.genresDataSource;
+        $scope.labelsDataSource = pdAlbumsCatalogControllers.labelsDataSource;
+        $scope.collectionAutocompleteDataSource = pdAlbumsCatalogControllers.collectionAutocompleteDataSource;
         
         $scope.addNewTrack = function() {
             if ($scope.newTrack !== '') {
@@ -121,19 +96,14 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
 
         };
         
-        $scope.removeTrack = function(index)
-        {
+        $scope.removeTrack = function(index) {
             $scope.newAlbum.tracks.splice(index, 1);
         };
         
-        $scope.$watch('newAlbum.coverPath', function() {
-            if ($scope.newAlbum.coverPath !== null) {
-                $scope.coverImageURL = $scope.newAlbum.coverPath;
-            }
-            else {
-                $scope.coverImageURL = 'img/albumart.jpg';
-            }
-        });
+        $scope.collectionSelected = function(e) {
+            var collection = e.sender.value();
+            $scope.newAlbum.collection = collection;
+        };
         
         $scope.insertAlbum = function() {
             $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
@@ -152,21 +122,14 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             });
         };
         
-        $scope.collectionsDataSource = {
-            type: 'json',
-            serverFiltering: true,
-            transport: {
-                read: {
-                    url: '../webresources/collections'
-                }
+        $scope.$watch('newAlbum.coverPath', function() {
+            if ($scope.newAlbum.coverPath !== null) {
+                $scope.coverImageURL = $scope.newAlbum.coverPath;
             }
-        };
-        
-        $scope.collectionSelected = function(e)
-        {
-            var collection = e.sender.value();
-            $scope.newAlbum.collection = collection;
-        };
+            else {
+                $scope.coverImageURL = 'img/albumart.jpg';
+            }
+        });
     }
 ]);
 
@@ -174,8 +137,90 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
     function($scope, $routeParams, $http) {
         $http.get('../webresources/albums/album/' + $routeParams.albumId).success(function(data, status, headers, config) {
             $scope.newAlbum = data;
+            $scope.coverImageURL = $scope.newAlbum.coverPath;
         }).error(function(data, status, headers, config) {
             alert(';__; there was an error');
         });
+        
+        $scope.newTrack = '';
+        
+        $scope.artistsDataSource = pdAlbumsCatalogControllers.artistsDataSource;
+        $scope.genresDataSource = pdAlbumsCatalogControllers.genresDataSource;
+        $scope.labelsDataSource = pdAlbumsCatalogControllers.labelsDataSource;
+        $scope.collectionAutocompleteDataSource = pdAlbumsCatalogControllers.collectionAutocompleteDataSource;
+        
+        $scope.addNewTrack = function() {
+            if ($scope.newTrack !== '') {
+                $scope.newAlbum.tracks.push({ name: $scope.newTrack, number: $scope.newAlbum.tracks.length + 1 });
+                $scope.newTrack = '';
+            }
+        };
+        
+        $scope.addNewTrackEnter = function(e) {
+            if (e.keyCode === 13) {
+                $scope.addNewTrack();
+            }  
+        };
+        
+        $scope.trackReordered = function(e) {
+
+        };
+        
+        $scope.removeTrack = function(index) {
+            $scope.newAlbum.tracks.splice(index, 1);
+        };
+        
+//        $scope.collectionSelected = function(e) {
+//            var collection = e.sender.value();
+//            $scope.newAlbum.collection = collection;
+//        };
     }
 ]);
+
+// Common objects
+
+pdAlbumsCatalogControllers.collectionAutocompleteDataSource = {
+    type: 'json',
+    transport: {
+        read: {
+            url: '../webresources/collections'
+        }
+    }
+};
+
+pdAlbumsCatalogControllers.collectionsDataSource = {
+    type: 'json',
+    serverFiltering: true,
+    transport: {
+        read: {
+            url: '../webresources/collections'
+        }
+    }
+};
+
+pdAlbumsCatalogControllers.artistsDataSource = {
+    type: 'json',
+    transport: {
+        read: {
+            url: '../webresources/artists'
+        }
+    }
+};
+
+pdAlbumsCatalogControllers.genresDataSource = {
+    type: 'json',
+    transport: {
+        read: {
+            url: '../webresources/genres'
+        }
+    }
+};
+
+pdAlbumsCatalogControllers.labelsDataSource = {
+    type: 'json',
+    transport: {
+        read: {
+            url: '../webresources/labels'
+        }
+    }
+};
