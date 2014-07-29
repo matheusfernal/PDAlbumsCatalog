@@ -74,7 +74,7 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             artist: null,
             genre: null,
             label: null,
-            collection: null,
+            collection: '<No Collection>',
             coverPath: null,
             year: new Date().getFullYear(),
             tags: [],
@@ -88,6 +88,7 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
         $scope.genresDataSource = pdAlbumsCatalogControllers.genresDataSource;
         $scope.labelsDataSource = pdAlbumsCatalogControllers.labelsDataSource;
         $scope.collectionAutocompleteDataSource = pdAlbumsCatalogControllers.collectionAutocompleteDataSource;
+        $scope.collectionsDataSource = pdAlbumsCatalogControllers.collectionsDataSource;
         
         $scope.addNewTrack = function() {
             if ($scope.newTrack !== '') {
@@ -110,15 +111,10 @@ pdAlbumsCatalogControllers.controller('AlbumInsertController', ['$scope', '$http
             $scope.newAlbum.tracks.splice(index, 1);
         };
         
-//        $scope.collectionSelected = function(e) {
-//            var collection = e.sender.value();
-//            $scope.newAlbum.collection = collection;
-//        };
-        
         $scope.insertAlbum = function() {
             if (pdAlbumsCatalogControllers.canInsertAlbum($scope.newAlbum)) {
-                if ($scope.newAlbum.collection === "<No Collection>") {
-                    scope.newAlbum.collection = null;
+                if ($scope.newAlbum.collection === "<No Collection>" || $scope.newAlbum.collection === '') {
+                    $scope.newAlbum.collection = null;
                 }
                 $http.put('../webresources/albums/insert', $scope.newAlbum).success(function(data, status, headers, config){
                     alert('Your album was saved.');
@@ -154,6 +150,9 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
             $scope.newAlbum = data;
             $scope.newAlbum._id = $routeParams.albumId;
             $scope.coverImageURL = $scope.newTrack.hasOwnProperty('coverPath') ? $scope.newAlbum.coverPath : 'img/albumart.jpg';
+            if (!$scope.newAlbum.hasOwnProperty('collection') || $scope.newAlbum.collection === null) {
+                $scope.newAlbum.collection = '<No Collection>';
+            }
         }).error(function(data, status, headers, config) {
             alert(';__; There was an error.');
         });
@@ -164,6 +163,7 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
         $scope.genresDataSource = pdAlbumsCatalogControllers.genresDataSource;
         $scope.labelsDataSource = pdAlbumsCatalogControllers.labelsDataSource;
         $scope.collectionAutocompleteDataSource = pdAlbumsCatalogControllers.collectionAutocompleteDataSource;
+        $scope.collectionsDataSource = pdAlbumsCatalogControllers.collectionsDataSource;
         
         $scope.addNewTrack = function() {
             if ($scope.newTrack !== '') {
@@ -186,13 +186,16 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
             $scope.newAlbum.tracks.splice(index, 1);
         };
         
-//        $scope.collectionSelected = function(e) {
-//            var collection = e.sender.value();
-//            $scope.newAlbum.collection = collection;
-//        };
+        $scope.collectionSelected = function(e) {
+            var collection = e.sender.value();
+            $scope.newAlbum.collection = collection;
+        };
 
         $scope.insertAlbum = function() {
             if (pdAlbumsCatalogControllers.canInsertAlbum($scope.newAlbum)) {
+                if ($scope.newAlbum.collection === "<No Collection>" || $scope.newAlbum.collection === '') {
+                    $scope.newAlbum.collection = null;
+                }
                 $http.post('../webresources/albums/update', $scope.newAlbum).success(function(data, status, headers, config){
                     alert('Your album was saved.');
                 }).error(function(data, status, headers, config){
@@ -202,7 +205,7 @@ pdAlbumsCatalogControllers.controller('AlbumUpdateController',['$scope', '$route
         };
         
         $scope.$watch('newAlbum.coverPath', function() {
-            if ($scope.newAlbum.coverPath !== null) {
+            if ($scope.hasOwnProperty('newAlbum') && $scope.newAlbum.hasOwnProperty('coverPath') && $scope.newAlbum.coverPath !== null) {
                 $scope.coverImageURL = $scope.newAlbum.coverPath;
             }
             else {

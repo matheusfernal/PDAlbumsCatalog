@@ -33,14 +33,13 @@
                 <p>
                 <p>
                     <span class="pdac-label">Collection:</span> 
-                    <input kendo-auto-complete ng-model="newAlbum.collection" k-data-source="collectionAutocompleteDataSource" placeholder="Type a collection..." class="album-field"/>
-                    <!--                    Collection: <select kendo-combo-box
-                                                        k-placeholder="'Select or type a collection'"
-                                                        k-filter="contains"
-                                                        k-auto-bind="false"
-                                                        k-min-length="2"
-                                                        k-data-source="collectionsDataSource"
-                                                        k-change="collectionSelected"></select>-->
+                    <select kendo-combo-box class="album-field" ng-model="newAlbum.collection"
+                        k-placeholder="'Select or type a collection'"
+                        k-filter="contains"
+                        k-auto-bind="false"
+                        k-min-length="2"
+                        k-data-source="collectionsDataSource"
+                        k-change="collectionSelected"></select>
                 </p>
             </fieldset>
 
