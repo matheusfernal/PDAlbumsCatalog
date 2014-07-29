@@ -40,7 +40,8 @@ public class AlbumsResource
     @Context
     private UriInfo context;
 
-    //TODO: Maybe I'll introduce another layer to avoid using the DAO in the webservice
+    //TODO: Maybe I'll introduce another layer to avoid using the DAO in the webservice. Need dependency injection to allow testing.
+    // http://stackoverflow.com/questions/21413738/unit-testing-jersey-restful-services
     private AlbumsDAO dao;
 
     /**
